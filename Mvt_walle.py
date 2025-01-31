@@ -28,7 +28,7 @@ class Walle:
 
         if self.serial_available:
             self.serial.write(res.encode())
-            print("➡️ Envoyé à l'Arduino:\n" + res.strip())
+            print("➡️ Envoyé à l'Arduino:\n")
 
     def blink(self):
         self.coef['lid_L']=0
@@ -91,4 +91,4 @@ class Walle:
     def close(self):
         if self.serial_available:
             self.serial.close()
-        print("🔌 Port série fermé.")
+        print("Port série fermé.")
