@@ -11,7 +11,7 @@ print("WALL-E commence ses mouvements aléatoires...")
 # Boucle infinie avec mouvements aléatoires
 try:
     while True:
-        action = random.choice(["blink", "head", "sad", "eyebrow", "auto"],[0.3,0.15,0.2,0.25,0.1])[0]
+        action = random.choices(["blink", "head", "sad", "eyebrow", "auto"],weights=[0.3, 0.15, 0.2, 0.25, 0.1])[0]
 
         if action == "blink":
             wal.blink()
