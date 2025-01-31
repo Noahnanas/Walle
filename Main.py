@@ -2,7 +2,7 @@ from Mvt_walle import Walle
 import time
 import keyboard
 
-wal = Walle("COM6")
+wal = Walle("/dev/ttyACM0")
 time.sleep(2)
 
 print("Contrôle de WALL-E via la console.")
