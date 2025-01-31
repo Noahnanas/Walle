@@ -21,7 +21,7 @@ class Walle:
             "eye_angle": 0.0,
             "eye_sad": 0.0
         }
-        self.update(self.coef.keys())
+        #self.update(self.coef.keys())
 
     def update(self, tab):
         res = ""
