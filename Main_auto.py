@@ -5,17 +5,14 @@ import random
 wal = Walle("/dev/ttyACM0")
 time.sleep(2)
 
-print("Contrôle de WALL-E via la console.")
 print("Mouvements aléatoires en cours...")
 print("Appuie sur Ctrl+C pour arrêter le programme.")
 
 wal.auto_adjust()
 
-actions = ["blink", "head", "sad", "eyebrow", "auto"]
-
 try:
     while True:
-        action = random.choice(actions)
+        action = random.choice(["blink", "head", "sad", "eyebrow", "auto"], weight=[0.3,0.2,0.15,0.25,0.1])[0]
         if action == "blink":
             wal.blink()
         elif action == "head":
