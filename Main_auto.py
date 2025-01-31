@@ -18,17 +18,17 @@ try:
             print("WALL-E cligne des yeux.")
 
         elif action == "head":
-            angle = random.choice([-1.0,-0.5,0.0, 0.5, 1.0])[0]
+            angle = random.choice([-1.0,-0.5,0.0, 0.5, 1.0])
             wal.headAngle(angle)
             print(f"WALL-E incline la tête à {angle:.2f}.")
 
         elif action == "sad":
-            level = random.choice([0.0, 0.5, 1.0])[0]
+            level = random.choice([0.0, 0.5, 1.0])
             wal.sadness(level)
             print(f"WALL-E ajuste sa tristesse à {level:.2f}.")
 
         elif action == "eyebrow":
-            angle = random.choice([0.0, 0.5, 1.0])[0]
+            angle = random.choice([0.0, 0.5, 1.0])
             wal.eyebrow(angle)
             print(f"WALL-E bouge ses sourcils à {angle:.2f}.")
 
