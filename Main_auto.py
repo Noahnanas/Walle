@@ -1,34 +1,37 @@
-import random
-import time
 from Mvt_walle import Walle
+import time
+import random
 
 wal = Walle("/dev/ttyACM0")
 time.sleep(2)
 
-values = [0, 0.5, 1]  # Valeurs possibles pour les angles
+print("Contrôle de WALL-E via la console.")
+print("Mouvements aléatoires en cours...")
+print("Appuie sur Ctrl+C pour arrêter le programme.")
 
-while True:
-    action = random.choices(
-        ["blink", "head", "sad", "eyebrow", "auto"],
-        weights=[0.3, 0.15, 0.2, 0.25, 0.1]
-    )[0]
+wal.auto_adjust()
 
-    if action == "blink":
-        wal.blink()
+actions = ["blink", "head", "sad", "eyebrow", "auto"]
 
-    elif action == "head":
-        angle = random.choice([-1, -0.5, 0, 0.5, 1])  # Valeurs fixes pour l'inclinaison de la tête
-        wal.headAngle(angle)
+try:
+    while True:
+        action = random.choice(actions)
+        if action == "blink":
+            wal.blink()
+        elif action == "head":
+            angle = random.choice([-1.0,-0.5,0.0, 0.5, 1.0])
+            wal.headAngle(angle)
+        elif action == "sad":
+            level = random.choice([0.0, 0.5, 1.0])
+            wal.sadness(level)
+        elif action == "eyebrow":
+            angle = random.choice([0.0, 0.5, 1.0])
+            wal.eyebrow(angle)
+        elif action == "auto":
+            wal.auto_adjust()
 
-    elif action == "sad":
-        level = random.choice(values)  # Prend une valeur dans [0, 0.5, 1]
-        wal.sadness(level)
-
-    elif action == "eyebrow":
-        angle = random.choice(values)  # Même logique pour les sourcils
-        wal.eyebrow(angle)
-
-    elif action == "auto":
-        wal.auto_adjust()
-
-    time.sleep(random.uniform(1, 3))  # Pause entre les actions (aléatoire entre 1 et 3 sec)
+        time.sleep(random.uniform(1, 3))
+except KeyboardInterrupt:
+    print("\nProgramme arrêté par l'utilisateur avec Ctrl+C.")
+    wal.neutral()
+    wal.close()

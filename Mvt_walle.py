@@ -12,6 +12,8 @@ class Walle:
             self.serial_available = False
             
         self.coef = {
+            "lid_L":1.0,
+            "lid_L":1.0,
             "eyebrow_L": 0.0,
             "eyebrow_R": 0.0,
             "UD_L": 0.55,
@@ -19,6 +21,7 @@ class Walle:
             "eye_angle": 0.0,
             "eye_sad": 0.0
         }
+        self.update(self.coef.keys())
 
     def update(self, tab):
         res = ""
@@ -86,6 +89,19 @@ class Walle:
         self.sadness(0.7)
         time.sleep(1.5)
         self.sadness(0)
+        
+    def neutral(self):
+        self.coef = {
+            "lid_L":0.0,
+            "lid_L":0.0,
+            "eyebrow_L": 0.0,
+            "eyebrow_R": 0.0,
+            "UD_L": 0.55,
+            "UD_R": 0.6,
+            "eye_angle": 0.0,
+            "eye_sad": 0.0
+        }
+        self.update(self.coef.keys())
         
 
     def close(self):
