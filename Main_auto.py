@@ -11,7 +11,7 @@ print("WALL-E commence ses mouvements aléatoires...")
 # Boucle infinie avec mouvements aléatoires
 try:
     while True:
-        action = random.choices(["blink", "head", "sad", "eyebrow", "auto"],weights=[0.3, 0.15, 0.2, 0.25, 0.1])[0]
+        action = random.choices(["blink", "head", "sad", "eyebrow", "auto"],weights=[0.5, 0.1, 0.1, 0.15, 0.1])[0]
 
         if action == "blink":
             wal.blink()
@@ -36,7 +36,7 @@ try:
             wal.auto_adjust()
             print("WALL-E exécute une suite de mouvements prédéfinie.")
 
-        time.sleep(random.uniform(5, 30))  # Pause aléatoire entre les mouvements
+        time.sleep(random.uniform(4, 15))  # Pause aléatoire entre les mouvements
 
 except KeyboardInterrupt:
     print("\nArrêt du programme.")
