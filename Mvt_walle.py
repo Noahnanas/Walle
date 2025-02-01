@@ -37,11 +37,12 @@ class Walle:
         self.coef['lid_L']=0
         self.coef['lid_R']=0
         self.update(['lid_L','lid_R'])
-        print("WALL-E cligne des yeux.")
+        print("WALL-E cligne des yeux. 1")
         time.sleep(0.15)
         self.coef['lid_L']=1
         self.coef['lid_R']=1
         self.update(['lid_L','lid_R'])
+        print("WALL-E cligne des yeux. 1")
 
     def headAngle(self, angle=None):
         if angle is None:

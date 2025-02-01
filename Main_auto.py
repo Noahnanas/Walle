@@ -15,7 +15,7 @@ try:
 
         if action == "blink":
             wal.blink()
-            print("WALL-E cligne des yeux.")
+            #print("WALL-E cligne des yeux.")
 
         elif action == "head":
             angle = random.choice([-1.0,-0.5,0.0, 0.5, 1.0])
