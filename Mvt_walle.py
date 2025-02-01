@@ -32,6 +32,8 @@ class Walle:
         if self.serial_available:
             self.serial.write(res.encode())
             print("➡️ Envoyé à l'Arduino:\n")
+        else:
+            print("Ereur envoie arduino\n")
 
     def blink(self):
         self.coef['lid_L']=0
