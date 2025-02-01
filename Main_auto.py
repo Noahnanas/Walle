@@ -1,6 +1,13 @@
 import time
 import random
 from Mvt_walle import Walle
+import pygame
+
+# Initialisation de pygame
+pygame.mixer.init()
+
+# Charger le fichier MP3
+pygame.mixer.music.load("sound/voice_walle.mp3")
 
 # Initialisation de WALL-E
 wal = Walle("/dev/ttyACM0")
@@ -34,6 +41,7 @@ try:
 
         elif action == "auto":
             wal.auto_adjust()
+            pygame.mixer.music.play()
             print("WALL-E exécute une suite de mouvements prédéfinie.")
 
         time.sleep(random.uniform(4, 15))  # Pause aléatoire entre les mouvements
