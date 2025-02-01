@@ -11,6 +11,7 @@ pygame.mixer.music.load("sound/voice_walle.mp3")
 
 # Initialisation de WALL-E
 wal = Walle("/dev/ttyACM0")
+pygame.mixer.music.play()
 time.sleep(2)
 
 print("WALL-E commence ses mouvements aléatoires...")
