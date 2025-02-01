@@ -1,2 +1,2 @@
 import os
-os.system("omxplayer ton_fichier.mp3")
+os.system("omxplayer /sound/voice_walle.mp3")
