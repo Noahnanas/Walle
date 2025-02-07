@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Contrôle des Servomoteurs</h1>
+    <h1>Test wall-e</h1>
 
     <div class="slider-container">
         <label for="servo">Servos :</label>
@@ -33,12 +33,10 @@
         let servoSelect = document.getElementById("servo");
         let sendButton = document.getElementById("send-btn");
 
-        // Met à jour l'affichage de la valeur du slider
         slider.oninput = function () {
             sliderValue.textContent = this.value;
         };
 
-        // Fonction pour envoyer les données au serveur Flask
         function sendData() {
             let selectedServo = servoSelect.value;
             let angle = slider.value;
