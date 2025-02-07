@@ -37,7 +37,7 @@
         slider.oninput = function() {
             sliderValue.textContent = this.value;
 
-            // Envoi de la valeur au serveur Flask via AJAX
+
             fetch('/slider', {
                 method: 'POST',
                 headers: {

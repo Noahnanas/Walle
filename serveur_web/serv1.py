@@ -8,8 +8,8 @@ def home():
 
 @app.route('/slider', methods=['POST'])
 def slider():
-    valeur = request.form.get('valeur')  # Récupère la valeur envoyée par AJAX
-    print(f"Valeur du slider reçue : {valeur}")  # Affichage dans le terminal
+    valeur = request.form.get('valeur')
+    print(f"Valeur du slider reçue : {valeur}")
     return "Valeur reçue"
 
 if __name__ == '__main__':
