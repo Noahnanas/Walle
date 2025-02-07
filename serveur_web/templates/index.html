@@ -3,55 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wall-e</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h1>Test wall-e</h1>
-
-    <div class="slider-container">
-        <label for="servo">Servos :</label>
-        <select id="servo">
-            <option value="lid_L">lid_L</option>
-            <option value="lid_R">lid_R</option>
-            <option value="eyebrow_L">eyebrow_L</option>
-            <option value="eyebrow_R">eyebrow_R</option>
-            <option value="UD_L">UD_L</option>
-            <option value="UD_R">UD_R</option>
-        </select>
-
-        <input type="range" id="slider" min="0" max="100" value="50">
-        <p>Valeur du slider : <span id="slider-value">50</span></p>
-
-        <!-- Bouton pour envoyer manuellement -->
-        <button id="send-btn">Envoyer</button>
-    </div>
-
-    <script>
-        let slider = document.getElementById("slider");
-        let sliderValue = document.getElementById("slider-value");
-        let servoSelect = document.getElementById("servo");
-        let sendButton = document.getElementById("send-btn");
-
-        slider.oninput = function () {
-            sliderValue.textContent = this.value;
-        };
-
-        function sendData() {
-            let selectedServo = servoSelect.value;
-            let angle = slider.value;
-
-            fetch('/servo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'servo=' + selectedServo + '&angle=' + angle
-            }).then(response => console.log("Valeur envoyée :", selectedServo, angle));
+    <title>Contrôle WALL-E</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nipplejs@0.8.6/dist/nipplejs.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
         }
 
-        // Envoie des données au clic sur le bouton
-        sendButton.onclick = sendData;
-    </script>
+        .control-panel {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #joystick-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 2px solid #000;
+        }
+
+        #joystick {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Contrôler WALL-E</h1>
+
+<div id="joystick-container">
+    <div id="joystick"></div>
+</div>
+
+<div class="control-panel">
+    <button class="button" onclick="moveWalle('blink')">Cligner des yeux</button>
+    <button class="button" onclick="moveWalle('auto_adjust')">Mouvements automatiques</button>
+</div>
+
+<div class="control-panel">
+    <label for="head-angle">Angle de tête :</label>
+    <input type="range" id="head-angle" min="-100" max="100" value="0" class="slider">
+    <span id="head-angle-value">0</span>°
+
+    <label for="sadness">Tristesse :</label>
+    <input type="range" id="sadness" min="0" max="100" value="0" class="slider">
+    <span id="sadness-value">0</span>
+</div>
+
+<div class="control-panel">
+    <button class="button" onclick="playSound('voice')">Émettre un son (voix)</button>
+    <button class="button" onclick="playSound('music')">Émettre un son (musique)</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/nipplejs@0.8.6/dist/nipplejs.min.js"></script>
+<script>
+    // Joystick setup
+    var joystick = nipplejs.create({
+        zone: document.getElementById('joystick'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' }
+    });
+
+    joystick.on('move', function (evt, data) {
+        var angle = data.angle.degree;
+        var distance = data.distance;
+
+        // Envoie les commandes de mouvement à WALL-E
+        console.log('Joystick moved: angle =', angle, 'distance =', distance);
+        moveWalle('head', angle);  // Utilise l'angle du joystick pour l'inclinaison de la tête
+    });
+
+    // Fonction pour envoyer les commandes à WALL-E via l'API
+    function moveWalle(action, value) {
+        var headAngle = document.querySelector('#head-angle').value;
+        var sadness = document.querySelector('#sadness').value;
+
+        if (action === 'blink') {
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'lid_L',
+                    'angle': 0,
+                })
+            });
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'lid_R',
+                    'angle': 0,
+                })
+            });
+            console.log("Clignement des yeux");
+        } else if (action === 'auto_adjust') {
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'UD_L',
+                    'angle': 0,
+                })
+            });
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'UD_R',
+                    'angle': 0,
+                })
+            });
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'eye_sad',
+                    'angle': 0,
+                })
+            });
+            console.log("Mouvements automatiques");
+        } else if (action === 'head') {
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'eye_angle',
+                    'angle': value,
+                })
+            });
+            console.log("Angle de tête modifié :", value);
+        } else if (action === 'sadness') {
+            fetch('/servo', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'servo': 'eye_sad',
+                    'angle': value,
+                })
+            });
+            console.log("Tristesse modifiée à :", value);
+        }
+    }
+
+    // Fonction pour jouer un son
+    function playSound(type) {
+        var sound = type === 'voice' ? 'sound/voice_walle.mp3' : 'sound/music.mp3';
+
+        var audio = new Audio(sound);
+        audio.play();
+        console.log("Son joué : ", sound);
+    }
+
+    // Met à jour les valeurs des sliders
+    document.querySelector('#head-angle').addEventListener('input', function () {
+        document.querySelector('#head-angle-value').textContent = this.value;
+    });
+
+    document.querySelector('#sadness').addEventListener('input', function () {
+        document.querySelector('#sadness-value').textContent = this.value;
+    });
+</script>
 </body>
 </html>
