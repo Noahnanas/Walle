@@ -1,21 +1,11 @@
-# Importing the required dependencies 
-import cv2 # for video rendering 
-import dlib # for face and landmark detection 
+import cv2
+import dlib
 import imutils 
-# for calculating dist b/w the eye landmarks 
 from scipy.spatial import distance as dist 
-# to get the landmark ids of the left and right eyes 
-# you can do this manually too 
 from imutils import face_utils 
 
 import serial
-
 import winsound
-
-
-
-SerialPort = serial.Serial("COM6", baudrate=9600, timeout=1)
-
 
 video_path = r"C:/Users/joker/Pictures/Camera Roll/testRec.mp4"  # Chemin de la vidéo
 #cam = cv2.VideoCapture(video_path)
@@ -50,7 +40,7 @@ active=False
 (RB_start, RB_end) = face_utils.FACIAL_LANDMARKS_IDXS["right_eyebrow"]
 
 detector = dlib.get_frontal_face_detector() 
-predictor_path = r"G:/.shortcut-targets-by-id/1kIymp6LMtwX3kk3tlaloCrtWfamhfD6l/Projet WALL-E/Walle/shape_predictor_68_face_landmarks.dat"
+predictor_path = "shape_predictor_68_face_landmarks.dat"
 landmark_predict  = dlib.shape_predictor(predictor_path)
 
 while 1: 
@@ -63,7 +53,6 @@ while 1:
 	for face in faces: 
 		shape = landmark_predict(img_gray, face) 
 
-		# converting the shape class directly 
 		shape = face_utils.shape_to_np(shape) 
 
 		lefteye = shape[L_start: L_end] 

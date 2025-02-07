@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .slider-container {
+            width: 50%;
+            margin: auto;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello !</h1>
+    <div class="slider-container">
+        <input type="range" id="slider" min="0" max="100" value="50">
+        <p>Valeur du slider : <span id="slider-value">50</span></p>
+    </div>
+
+    <script>
+        let slider = document.getElementById("slider");
+        let sliderValue = document.getElementById("slider-value");
+
+        slider.oninput = function() {
+            sliderValue.textContent = this.value;
+
+            // Envoi de la valeur au serveur Flask via AJAX
+            fetch('/slider', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'valeur=' + this.value
+            }).then(response => console.log("Valeur envoyée au serveur"));
+        }
+    </script>
+</body>
+</html>

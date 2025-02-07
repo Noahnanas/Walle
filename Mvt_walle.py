@@ -13,7 +13,7 @@ class Walle:
             
         self.coef = {
             "lid_L":1.0,
-            "lid_L":1.0,
+            "lid_R":1.0,
             "eyebrow_L": 0.0,
             "eyebrow_R": 0.0,
             "UD_L": 0.55,
@@ -45,6 +45,11 @@ class Walle:
         self.coef['lid_R']=1
         self.update(['lid_L','lid_R'])
         print("WALL-E cligne des yeux. 2")
+        
+    def manual(self,name,angle):
+        self.coef[name]=angle
+        print(self.coef)
+        self.update([name])
 
     def headAngle(self, angle=None):
         if angle is None:
@@ -81,16 +86,16 @@ class Walle:
         self.headAngle(0)
         self.coef['UD_R']=0
         self.update(['UD_R'])
-        time.sleep(1.5)
+        time.sleep(1)
         self.coef['UD_L']=0
         self.update(['UD_L'])
-        time.sleep(1.5)
+        time.sleep(1)
         self.sadness(0)
         time.sleep(1)
         self.blink()
-        time.sleep(1)
+        time.sleep(0.7)
         self.sadness(0.7)
-        time.sleep(1.5)
+        time.sleep(1)
         self.sadness(0)
         
     def neutral(self):
