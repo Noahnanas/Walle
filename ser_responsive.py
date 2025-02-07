@@ -17,7 +17,7 @@ def index():
 def servo():
     servo_id = request.form['servo']
     angle = int(request.form['angle'])
-    wal.manual(servo_id, angle)
+    wal.manual(servo_id, angle/100)
     return "OK"
 
 @app.route('/blink', methods=['POST'])
@@ -33,13 +33,13 @@ def auto_adjust():
 @app.route('/head_angle', methods=['POST'])
 def head_angle():
     angle = int(request.form['angle'])
-    wal.headAngle(angle)
+    wal.headAngle(angle/100)
     return "OK"
 
 @app.route('/sadness', methods=['POST'])
 def sadness():
     level = int(request.form['level'])
-    wal.sadness(level)
+    wal.sadness(level/100)
     return "OK"
 
 if __name__ == '__main__':
