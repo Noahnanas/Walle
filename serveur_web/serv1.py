@@ -9,11 +9,11 @@ def index():
 @app.route('/servo', methods=['POST'])
 def servo():
     servo_id = request.form['servo']  # Récupère le servomoteur sélectionné
-    angle = request.form['angle']  # Récupère l'angle
+    pourcentage = request.form['pourcentage']  # Récupère le pourcentage
 
-    print(f"Servo sélectionné : {servo_id}, Angle : {angle}")  # Affichage côté serveur
+    print(f"Servo sélectionné : {servo_id}, Pourcentage : {pourcentage}%")  # Affichage côté serveur
 
-    # Ici, tu peux ajouter du code pour contrôler le servomoteur avec GPIO
+    # Ici, tu peux ajouter du code pour contrôler le servomoteur via GPIO
     return "OK"
 
 if __name__ == '__main__':

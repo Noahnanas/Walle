@@ -21,19 +21,27 @@
         </select>
 
         <input type="range" id="slider" min="0" max="100" value="50">
-        <p>Valeur du slider : <span id="slider-value">90</span></p>
+        <p>Valeur du slider : <span id="slider-value">50</span></p>
+
+        <!-- Bouton pour envoyer manuellement -->
+        <button id="send-btn">Envoyer</button>
     </div>
 
     <script>
         let slider = document.getElementById("slider");
         let sliderValue = document.getElementById("slider-value");
         let servoSelect = document.getElementById("servo");
+        let sendButton = document.getElementById("send-btn");
 
+        // Met à jour l'affichage de la valeur du slider
+        slider.oninput = function () {
+            sliderValue.textContent = this.value;
+        };
+
+        // Fonction pour envoyer les données au serveur Flask
         function sendData() {
             let selectedServo = servoSelect.value;
             let angle = slider.value;
-            
-            sliderValue.textContent = angle;
 
             fetch('/servo', {
                 method: 'POST',
@@ -44,8 +52,8 @@
             }).then(response => console.log("Valeur envoyée :", selectedServo, angle));
         }
 
-        slider.oninput = sendData;
-        servoSelect.onchange = sendData;
+        // Envoie des données au clic sur le bouton
+        sendButton.onclick = sendData;
     </script>
 </body>
 </html>
