@@ -3,32 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wall-e</title>
+    <title>Slider Flask</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Hello !</h1>
+    <h1>Contrôle des Servomoteurs</h1>
+
     <div class="slider-container">
-        <input type="range" id="slider" min="0" max="100" value="50">
-        <p>Valeur du slider : <span id="slider-value">50</span></p>
+        <!-- Sélection du servomoteur -->
+        <label for="servo">Choisissez un servomoteur :</label>
+        <select id="servo">
+            <option value="servo1">Servomoteur 1</option>
+            <option value="servo2">Servomoteur 2</option>
+            <option value="servo3">Servomoteur 3</option>
+        </select>
+
+        <!-- Slider pour contrôler l'angle -->
+        <input type="range" id="slider" min="0" max="180" value="90">
+        <p>Valeur du slider : <span id="slider-value">90</span></p>
     </div>
 
     <script>
         let slider = document.getElementById("slider");
         let sliderValue = document.getElementById("slider-value");
+        let servoSelect = document.getElementById("servo");
 
-        slider.oninput = function() {
-            sliderValue.textContent = this.value;
+        function sendData() {
+            let selectedServo = servoSelect.value; // Récupère le servomoteur sélectionné
+            let angle = slider.value; // Récupère la valeur du slider
+            
+            sliderValue.textContent = angle; // Met à jour l'affichage
 
-
-            fetch('/slider', {
+            // Envoi au serveur Flask
+            fetch('/servo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 'valeur=' + this.value
-            }).then(response => console.log("Valeur envoyée au serveur"));
+                body: 'servo=' + selectedServo + '&angle=' + angle
+            }).then(response => console.log("Valeur envoyée :", selectedServo, angle));
         }
+
+        // Appeler sendData() quand on change la valeur du slider ou la sélection du servo
+        slider.oninput = sendData;
+        servoSelect.onchange = sendData;
     </script>
 </body>
 </html>
