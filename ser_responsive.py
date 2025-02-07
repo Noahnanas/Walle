@@ -22,7 +22,7 @@ def servo():
     print(f"Servo sélectionné : {servo_id}, Angle : {angle}°")  # Affichage côté serveur
 
     # Utilisation de Mvt_walle pour bouger le servomoteur
-    wal.manual(servo_id, float(angle))  # Déplace le servomoteur en fonction de l'angle
+    wal.manual(servo_id, float(angle)/100)  # Déplace le servomoteur en fonction de l'angle
 
     return "OK"
 
