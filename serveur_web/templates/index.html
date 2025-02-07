@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wall-e</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.8.6/dist/nipplejs.min.js"></script>
 </head>
 <body>
-    <h1>Test Wall-E</h1>
+    <h1>Contrôler WALL-E</h1>
 
     <div class="slider-container">
         <label for="servo">Servos :</label>
@@ -24,33 +23,27 @@
         <input type="range" id="slider" min="0" max="100" value="50">
         <p>Valeur du slider : <span id="slider-value">50</span></p>
 
-        <!-- Bouton pour cligner les yeux -->
-        <button id="blink-btn">Cligner des yeux</button>
-
-        <!-- Bouton pour mouvement automatique -->
-        <button id="auto-adjust-btn">Mouvements automatiques</button>
-
-        <!-- Bouton pour envoyer manuellement -->
         <button id="send-btn">Envoyer</button>
     </div>
 
-    <div id="joystick-container">
-        <div id="joystick"></div>
-    </div>
-
-    <div class="slider-container">
-        <label for="head-angle">Angle de tête :</label>
-        <input type="range" id="head-angle" min="-100" max="100" value="0" class="slider">
-        <span id="head-angle-value">0</span>°
-        
-        <label for="sadness">Tristesse :</label>
-        <input type="range" id="sadness" min="0" max="100" value="0" class="slider">
-        <span id="sadness-value">0</span>
+    <div class="control-panel">
+        <button id="blink-btn">Cligner des yeux</button>
     </div>
 
     <div class="control-panel">
-        <button class="button" onclick="playSound('voice')">Émettre un son (voix)</button>
-        <button class="button" onclick="playSound('music')">Émettre un son (musique)</button>
+        <label for="head-angle">Angle de tête :</label>
+        <input type="range" id="head-angle" min="-100" max="100" value="0">
+        <span id="head-angle-value">0</span>°
+
+        <button id="head-angle-btn">Envoyer Angle de Tête</button>
+    </div>
+
+    <div class="control-panel">
+        <label for="sadness">Tristesse :</label>
+        <input type="range" id="sadness" min="0" max="100" value="0">
+        <span id="sadness-value">0</span>°
+
+        <button id="sadness-btn">Envoyer Tristesse</button>
     </div>
 
     <script>
@@ -58,21 +51,24 @@
         let sliderValue = document.getElementById("slider-value");
         let servoSelect = document.getElementById("servo");
         let sendButton = document.getElementById("send-btn");
-        let blinkButton = document.getElementById("blink-btn");
-        let autoAdjustButton = document.getElementById("auto-adjust-btn");
-        let headAngleSlider = document.getElementById("head-angle");
-        let sadnessSlider = document.getElementById("sadness");
 
+        let headAngleSlider = document.getElementById("head-angle");
+        let headAngleValue = document.getElementById("head-angle-value");
+
+        let sadnessSlider = document.getElementById("sadness");
+        let sadnessValue = document.getElementById("sadness-value");
+
+        // Mettre à jour la valeur du slider
         slider.oninput = function () {
             sliderValue.textContent = this.value;
         };
 
         headAngleSlider.oninput = function () {
-            document.querySelector('#head-angle-value').textContent = this.value;
+            headAngleValue.textContent = this.value;
         };
 
         sadnessSlider.oninput = function () {
-            document.querySelector('#sadness-value').textContent = this.value;
+            sadnessValue.textContent = this.value;
         };
 
         function sendData() {
@@ -88,65 +84,41 @@
             }).then(response => console.log("Valeur envoyée :", selectedServo, angle));
         }
 
-        function sendBlink() {
-            fetch('/blink', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(response => console.log("Clignement des yeux effectué"));
-        }
-
-        function sendAutoAdjust() {
-            fetch('/auto_adjust', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(response => console.log("Mouvements automatiques effectués"));
-        }
-
-        function sendHeadAngle() {
-            let angle = headAngleSlider.value;
-            fetch('/servo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'servo=head_angle&angle=' + angle
-            }).then(response => console.log("Angle de tête modifié : ", angle));
-        }
-
-        function sendSadness() {
-            let sadness = sadnessSlider.value;
-            fetch('/servo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'servo=eye_sad&angle=' + sadness
-            }).then(response => console.log("Niveau de tristesse modifié : ", sadness));
-        }
-
-        // Joystick setup
-        var joystick = nipplejs.create({
-            zone: document.getElementById('joystick'),
-            mode: 'static',
-            position: { left: '50%', top: '50%' }
-        });
-
-        joystick.on('move', function (evt, data) {
-            var angle = data.angle.degree;
-            var distance = data.distance;
-            console.log('Joystick moved: angle =', angle, 'distance =', distance);
-        });
-
-        // Envoie des données au clic sur le bouton
+        // Envoie des données au clic sur le bouton "Envoyer"
         sendButton.onclick = sendData;
-        blinkButton.onclick = sendBlink;
-        autoAdjustButton.onclick = sendAutoAdjust;
-        headAngleSlider.oninput = sendHeadAngle;
-        sadnessSlider.oninput = sendSadness;
+
+        // Envoie l'angle de tête
+        document.getElementById("head-angle-btn").onclick = function () {
+            let angle = headAngleSlider.value;
+
+            fetch('/head_angle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'angle=' + angle
+            }).then(response => console.log("Angle de tête envoyé :", angle));
+        };
+
+        // Envoie le niveau de tristesse
+        document.getElementById("sadness-btn").onclick = function () {
+            let sadnessLevel = sadnessSlider.value;
+
+            fetch('/sadness', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'level=' + sadnessLevel
+            }).then(response => console.log("Niveau de tristesse envoyé :", sadnessLevel));
+        };
+
+        // Envoie une requête pour cligner des yeux
+        document.getElementById("blink-btn").onclick = function () {
+            fetch('/blink', {
+                method: 'POST'
+            }).then(response => console.log("Clignement des yeux envoyé"));
+        };
     </script>
 </body>
 </html>
