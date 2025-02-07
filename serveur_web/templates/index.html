@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slider Flask</title>
+    <title>Wall-e</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Contrôle des Servomoteurs</h1>
 
     <div class="slider-container">
-        <!-- Sélection du servomoteur -->
-        <label for="servo">Choisissez un servomoteur :</label>
+        <label for="servo">Servo</label>
         <select id="servo">
             <option value="servo1">Servomoteur 1</option>
             <option value="servo2">Servomoteur 2</option>
             <option value="servo3">Servomoteur 3</option>
         </select>
 
-        <!-- Slider pour contrôler l'angle -->
-        <input type="range" id="slider" min="0" max="180" value="90">
+        <input type="range" id="slider" min="0" max="100" value="50">
         <p>Valeur du slider : <span id="slider-value">90</span></p>
     </div>
 
@@ -29,12 +27,11 @@
         let servoSelect = document.getElementById("servo");
 
         function sendData() {
-            let selectedServo = servoSelect.value; // Récupère le servomoteur sélectionné
-            let angle = slider.value; // Récupère la valeur du slider
+            let selectedServo = servoSelect.value;
+            let angle = slider.value;
             
-            sliderValue.textContent = angle; // Met à jour l'affichage
+            sliderValue.textContent = angle;
 
-            // Envoi au serveur Flask
             fetch('/servo', {
                 method: 'POST',
                 headers: {
@@ -44,7 +41,6 @@
             }).then(response => console.log("Valeur envoyée :", selectedServo, angle));
         }
 
-        // Appeler sendData() quand on change la valeur du slider ou la sélection du servo
         slider.oninput = sendData;
         servoSelect.onchange = sendData;
     </script>
