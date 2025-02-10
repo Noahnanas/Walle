@@ -1,19 +1,13 @@
 import cv2
+import matplotlib.pyplot as plt
 
-# Ouvre la webcam (0 pour la webcam par défaut)
 cap = cv2.VideoCapture(0)
-
-while True:
-    ret, frame = cap.read()  # Capture une image
-    if not ret:
-        break
-
-    cv2.imshow("Flux Webcam", frame)  # Affiche l'image dans une fenêtre
-
-    # Quitte avec la touche 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Libère la webcam et ferme les fenêtres
+ret, frame = cap.read()
 cap.release()
-cv2.destroyAllWindows()
+
+if ret:
+    plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    plt.axis('off')
+    plt.show()
+else:
+    print("Erreur : Impossible de capturer l'image.")
