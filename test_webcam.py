@@ -3,7 +3,7 @@ import cv2
 
 app = Flask(__name__)
 
-
+# Ouvre la webcam (0 pour la webcam par défaut)
 camera = cv2.VideoCapture(0)
 
 def generate_frames():
@@ -20,10 +20,11 @@ def generate_frames():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('indexwebcam.html')
 
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
