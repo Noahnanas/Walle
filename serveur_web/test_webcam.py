@@ -7,7 +7,7 @@ from picamera2 import Picamera2
 app = Flask(__name__)
 
 # Initialisation de Picamera2
-screen_width, screen_height = 640, 480
+screen_width, screen_height = 640, 640
 picam2 = Picamera2()
 preview_config = picam2.create_preview_configuration(
     main={"format": "RGB888", "size": (screen_width, screen_height)}
