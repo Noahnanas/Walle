@@ -25,7 +25,7 @@ def gen_frames():
         frame = picam2.capture_array()
         
         # Conversion de BGR vers RGB (selon la configuration, parfois nécessaire)
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
         # Conversion en niveaux de gris pour la détection des visages
         gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
