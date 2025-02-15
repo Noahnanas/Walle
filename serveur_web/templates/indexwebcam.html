@@ -1,12 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webcam Stream</title>
-</head>
-<body>
-    <h1>Flux vidéo de la webcam</h1>
-    <img src="{{ url_for('video_feed') }}" width="640" height="480">
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Flux Vidéo</title>
+  </head>
+  <body>
+    <h1>Flux Vidéo</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="Flux vidéo">
+  </body>
 </html>
