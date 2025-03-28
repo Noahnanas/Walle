@@ -41,9 +41,12 @@ print("  - manual [nom] [val]  → Modifie un paramètre spécifique")
 print("  - auto                → Exécute une séquence animée")
 print("  - neutral             → Remet WALL-E en position neutre")
 print("  - quit                → Quitte le programme")
+print("  - neckA [angle]       → Incline le cou (0 à 1)")
+print("  - neckL [level]       → (0 à 1)")
+print("  - neckLR [level]       → (0 à 1)")
 print("\nAppuie sur 'q' ou 'quit' pour quitter.")
 
-wal.auto_adjust()  # Démarrage avec une animation automatique
+#wal.auto_adjust()  # Démarrage avec une animation automatique
 
 while True:
     try:
@@ -60,6 +63,28 @@ while True:
             wal.headAngle(angle)
         except (IndexError, ValueError):
             print("❌ Usage : head [angle] (valeurs entre -1 et 1)")
+            
+    elif cmd.startswith("neckl "):
+        try:
+            angle = float(cmd.split()[1])
+            wal.neckLevel(angle)
+        except (IndexError, ValueError):
+            print("❌ Usage : head [angle] (valeurs entre -1 et 1)")
+            
+    elif cmd.startswith("necka "):
+        try:
+            angle = float(cmd.split()[1])
+            wal.neckAngle(angle)
+        except (IndexError, ValueError):
+            print("❌ Usage : head [angle] (valeurs entre -1 et 1)")
+            
+    elif cmd.startswith("necklr "):
+        try:
+            angle = float(cmd.split()[1])
+            wal.neckLR(angle)
+        except (IndexError, ValueError):
+            print("❌ Usage : head [angle] (valeurs entre -1 et 1)")
+            
 
     elif cmd.startswith("sad "):
         try:

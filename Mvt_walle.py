@@ -19,7 +19,12 @@ class Walle:
             "UD_L": 0.55,
             "UD_R": 0.6,
             "eye_angle": 0.0,
-            "eye_sad": 0.0
+            "eye_sad": 0.0,
+            "neck_U":0.0,
+            "neck_L":0.0,
+            "neck_LR":0.0,
+            "neck_level":0.5,
+            "neck_angle":0.0
         }
         #self.update(self.coef.keys())
 
@@ -44,7 +49,6 @@ class Walle:
         self.coef['lid_L']=1
         self.coef['lid_R']=1
         self.update(['lid_L','lid_R'])
-        print("WALL-E cligne des yeux. 2")
         
     def manual(self,name,angle):
         self.coef[name]=angle
@@ -66,21 +70,44 @@ class Walle:
         self.coef["UD_L"] = (1 - self.coef["eye_sad"]) * UD_L_temp
         self.coef["UD_R"] = (1 - self.coef["eye_sad"]) * UD_R_temp
 
-        # Clamping entre 0 et 1
         self.coef["UD_L"] = max(0, min(1, self.coef["UD_L"]))
         self.coef["UD_R"] = max(0, min(1, self.coef["UD_R"]))
 
         self.update(["UD_L", "UD_R"])
+        
+    def neckLR(self, angle):
+        self.coef["neck_LR"]=angle
+        self.update(["neck_LR"])
 
     def eyebrow(self, angle):
         self.coef["eyebrow_L"] = angle
         self.coef["eyebrow_R"] = angle
         self.update(["eyebrow_L", "eyebrow_R"])
 
-    def sadness(self, angle: float):
+    def sadness(self, angle):
         self.coef["eye_sad"] = angle
         self.headAngle()
         print(f"Niveau de tristesse réglé à {angle}")
+        
+    def neckLevel(self, headLevel=None):
+        neckAngle = self.coef["neck_angle"]
+
+        if headLevel is None:
+            headLevel = self.coef["neck_level"]
+        else:
+            self.coef["neck_level"] = headLevel
+
+        neck_L_temp = (1 - neckAngle) * headLevel
+        neck_U_temp = neckAngle + (1 - neckAngle) * headLevel
+
+        self.coef["neck_L"] = max(0, min(1, neck_L_temp))
+        self.coef["neck_U"] = max(0, min(1, neck_U_temp))
+
+        self.update(["neck_L", "neck_U"])
+        
+    def neckAngle(self, neckAngle=None):
+        self.coef["neck_angle"] = neckAngle
+        self.neckLevel()
         
     def auto_adjust(self):
         self.headAngle(0)
