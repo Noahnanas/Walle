@@ -1,56 +1,31 @@
+import cv2
 import time
-import random
-from Mvt_walle import Walle
-import pygame
 
-# Initialisation de pygame
-pygame.mixer.init()
+cap = cv2.VideoCapture(0)
 
-# Charger le fichier MP3
-pygame.mixer.music.load("sound/voice_walle.mp3")
+if not cap.isOpened():
+    print("❌ Erreur : Impossible d'ouvrir la caméra.")
+    exit()
 
-# Initialisation de WALL-E
-wal = Walle("/dev/ttyACM0")
-pygame.mixer.music.play()
-while pygame.mixer.music.get_busy():
-    time.sleep(1)
-time.sleep(2)
+pTime = 0
+while True:
+    success, img = cap.read()
+    if not success:
+        print("❌ Erreur : Impossible de lire l'image de la caméra.")
+        break  # Sort de la boucle si la capture échoue
 
-print("WALL-E commence ses mouvements aléatoires...")
+    # Affichage FPS
+    cTime = time.time()
+    fps = 1 / (cTime - pTime) if cTime - pTime > 0 else 0
+    pTime = cTime
 
-# Boucle infinie avec mouvements aléatoires
-try:
-    while True:
-        action = random.choices(["blink", "head", "sad", "eyebrow", "auto"],weights=[0.5, 0.1, 0.1, 0.15, 0.1])[0]
+    cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-        if action == "blink":
-            wal.blink()
-            #print("WALL-E cligne des yeux.")
+    cv2.imshow("Test", img)
 
-        elif action == "head":
-            angle = random.choice([-1.0,-0.5,0.0, 0.5, 1.0])
-            wal.headAngle(angle)
-            print(f"WALL-E incline la tête à {angle:.2f}.")
+    # Quitter proprement avec la touche 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-        elif action == "sad":
-            level = random.choice([0.0, 0.5, 1.0])
-            wal.sadness(level)
-            print(f"WALL-E ajuste sa tristesse à {level:.2f}.")
-
-        elif action == "eyebrow":
-            angle = random.choice([0.0, 0.5, 1.0])
-            wal.eyebrow(angle)
-            print(f"WALL-E bouge ses sourcils à {angle:.2f}.")
-
-        elif action == "auto":
-            wal.auto_adjust()
-            if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.play()
-            print("WALL-E exécute une suite de mouvements prédéfinie.")
-
-        time.sleep(random.uniform(4, 15))  # Pause aléatoire entre les mouvements
-
-except KeyboardInterrupt:
-    print("\nArrêt du programme.")
-    wal.neutral()
-    wal.close()
+cap.release()
+cv2.destroyAllWindows()
