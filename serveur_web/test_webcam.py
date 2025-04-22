@@ -29,11 +29,6 @@ def gen_frames():
         # Capture d'une image depuis la caméra
         frame = picam2.capture_array()
         
-        # Encodage de l'image en JPEG
-        ret, buffer = cv2.imencode('.jpg', frame)
-        if not ret:
-            continue  # Si l'encodage échoue, on passe à la frame suivante
-        
         results = face_mesh.process(frame)
 
         h, w, _ = frame.shape  # Dimensions de l'image
@@ -42,6 +37,11 @@ def gen_frames():
                 for landmark in face_landmarks.landmark:
                     x, y = int(landmark.x * w), int(landmark.y * h)
                     cv2.circle(frame, (x, y), 1, (0, 255, 0), -1)
+                    
+        # Encodage de l'image en JPEG
+        ret, buffer = cv2.imencode('.jpg', frame)
+        if not ret:
+            continue  # Si l'encodage échoue, on passe à la frame suivante
                     
         frame_bytes = buffer.tobytes()
 
