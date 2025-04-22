@@ -3,6 +3,11 @@ import cv2
 import numpy as np
 from flask import Flask, render_template, Response
 from picamera2 import Picamera2
+import mediapipe as mp
+
+# Initialisation de MediaPipe Face Mesh
+mp_face_mesh = mp.solutions.face_mesh
+face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=True)
 
 app = Flask(__name__)
 
@@ -24,25 +29,22 @@ def gen_frames():
         # Capture d'une image depuis la caméra
         frame = picam2.capture_array()
         
-        # Conversion de BGR vers RGB (selon la configuration, parfois nécessaire)
-        #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        
-        # Conversion en niveaux de gris pour la détection des visages
-        gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-        
-        # Détection des visages
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5, minSize=(30, 30))
-        for (x, y, w, h) in faces:
-            # Dessiner un rectangle vert autour du visage détecté
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-        
         # Encodage de l'image en JPEG
         ret, buffer = cv2.imencode('.jpg', frame)
         if not ret:
             continue  # Si l'encodage échoue, on passe à la frame suivante
-        frame_bytes = buffer.tobytes()
         
-        # Renvoie le frame dans le format multipart requis pour le streaming
+        results = face_mesh.process(frame)
+
+        h, w, _ = frame.shape  # Dimensions de l'image
+        if results.multi_face_landmarks:
+            for face_landmarks in results.multi_face_landmarks:
+                for landmark in face_landmarks.landmark:
+                    x, y = int(landmark.x * w), int(landmark.y * h)
+                    cv2.circle(frame, (x, y), 1, (0, 255, 0), -1)
+                    
+        frame_bytes = buffer.tobytes()
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         time.sleep(0.03)  # Petite pause pour limiter l'utilisation du CPU
