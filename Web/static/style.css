@@ -4,7 +4,6 @@ body {
     background: url("/static/space-bg.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: 'Segoe UI', sans-serif;
-    color: #f0f0f0;
 }
 
 .container {
