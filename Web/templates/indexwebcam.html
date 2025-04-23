@@ -2,68 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WALL-E Control Interface</title>
+    <title>WALL-E Controller</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <img src="{{ url_for('static', filename='walle-logo.png') }}" class="logo-fixed">
-
     <div class="container">
-        <div class="video-box">
-            <img id="video-stream" src="{{ url_for('video_feed') }}">
+        <div class="video-panel">
+            <img src="{{ url_for('video_feed') }}" alt="Live Video Feed">
         </div>
-
         <div class="control-panel">
-            <form method="POST" action="/set_mode" class="inline-form">
-                <label for="mode">Mode:</label>
-                <select name="mode" id="mode">
-                    <option value="Auto">Auto</option>
-                    <option value="Follow">Follow</option>
-                    <option value="Manual">Manual</option>
-                    <option value="Sequence">Sequence</option>
-                    <option value="Sleep">Sleep</option>
+            <div class="dropdown-row">
+                <label for="mode-select">Mode:</label>
+                <select id="mode-select">
+                    <option>Auto</option>
+                    <option>Follow</option>
+                    <option>Manual</option>
+                    <option>Sequence</option>
+                    <option>Sleep</option>
                 </select>
-                <button type="submit">Set</button>
-            </form>
+                <button class="send-button">Envoyer</button>
+            </div>
 
-            <form method="POST" action="/set_emote" class="inline-form">
-                <label for="emote">Emote:</label>
-                <select name="emote" id="emote">
-                    <option value="Happy">Happy</option>
-                    <option value="Sad">Sad</option>
-                    <option value="Surprised">Surprised</option>
+            <div class="dropdown-row">
+                <label for="emote-select">Emote:</label>
+                <select id="emote-select">
+                    <option>Happy</option>
+                    <option>Sad</option>
+                    <option>Angry</option>
                 </select>
-                <button type="submit">Set</button>
-            </form>
+                <button class="send-button">Envoyer</button>
+            </div>
 
-            <form method="POST" action="/set_servo" class="inline-form">
-                <label for="servo">Servo:</label>
-                <select name="servo" id="servo">
-                    <option value="Head">Head</option>
-                    <option value="ArmLeft">Arm Left</option>
-                    <option value="ArmRight">Arm Right</option>
+            <div class="dropdown-row">
+                <label for="servo-select">Servo:</label>
+                <select id="servo-select">
+                    <option>Head</option>
+                    <option>Arm Left</option>
+                    <option>Arm Right</option>
                 </select>
-                <input type="range" name="position" min="0" max="180">
-                <button type="submit">Set</button>
-            </form>
+                <input type="range" min="0" max="180" value="90" class="servo-slider">
+                <button class="send-button">Envoyer</button>
+            </div>
 
             <div class="joystick-row">
                 <div class="joystick">
-                    <div></div>
-                    <button class="dir-btn" onclick="move('forward')">&#x2191;</button>
-                    <div></div>
-                    <button class="dir-btn" onclick="move('left')">&#x2190;</button>
-                    <button class="dir-btn" onclick="blink()">Blink</button>
-                    <button class="dir-btn" onclick="move('right')">&#x2192;</button>
-                    <div></div>
-                    <button class="dir-btn" onclick="move('backward')">&#x2193;</button>
-                    <div></div>
+                    <div class="row">
+                        <button class="control-button">↑</button>
+                    </div>
+                    <div class="row">
+                        <button class="control-button">←</button>
+                        <button class="control-button blink-button">Blink</button>
+                        <button class="control-button">→</button>
+                    </div>
+                    <div class="row">
+                        <button class="control-button">↓</button>
+                    </div>
                 </div>
-
-                <form action="/shutdown" method="POST">
-                    <button id="shutdown" type="submit">&#x23FB;</button>
-                </form>
+                <button class="shutdown-button">⏻</button>
             </div>
         </div>
     </div>
