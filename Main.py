@@ -10,7 +10,7 @@ manager = ModeManager(robot)
 
 manager.launch_mode(Manual)
 
-flask_thread = threading.Thread(target=serveur.run_web_server, args=(manager))
+flask_thread = threading.Thread(target=serveur.run_web_server, args=(manager,))
 flask_thread.daemon = True
 flask_thread.start()
 
