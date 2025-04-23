@@ -68,51 +68,52 @@ body {
     font-weight: bold;
 }
 
-.joystick-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: auto;
-}
-
-.joystick {
+.joystick-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding: 10px;
 }
 
-.joystick .row {
-    display: flex;
-    justify-content: center;
-    margin: 5px 0;
+.joystick-grid {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    gap: 10px;
 }
 
-.control-button {
-    width: 70px;
-    height: 70px;
-    background-color: #555;
-    color: white;
+.blink-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.blink-btn:hover {
+    background-color: #ffd633;
+}
+
+.shutdown-btn {
+    align-self: flex-end;
+    margin-top: 10px;
+    padding: 10px;
     font-size: 24px;
     border: none;
-    border-radius: 10px;
-    margin: 0 8px;
-    cursor: pointer;
-}
-
-.blink-button {
-    background-color: #f1c40f;
-}
-
-.shutdown-button {
-    width: 60px;
-    height: 60px;
-    background-color: #e74c3c;
-    border: none;
-    border-radius: 10px;
+    border-radius: 8px;
+    background-color: #ff4d4d;
     color: white;
-    font-size: 20px;
-    margin-left: 15px;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.shutdown-btn:hover {
+    background-color: #e60000;
 }
 
 /* Responsive design */

@@ -45,22 +45,22 @@
                 <button class="send-button">Envoyer</button>
             </div>
 
-            <div class="joystick-row">
-                <div class="joystick">
-                    <div class="row">
-                        <button class="control-button">↑</button>
-                    </div>
-                    <div class="row">
-                        <button class="control-button">←</button>
-                        <button class="control-button blink-button">Blink</button>
-                        <button class="control-button">→</button>
-                    </div>
-                    <div class="row">
-                        <button class="control-button">↓</button>
-                    </div>
-                </div>
-                <button class="shutdown-button">⏻</button>
-            </div>
+            <div class="joystick-container">
+              <div class="joystick-grid">
+                  <button class="joystick-button" onclick="sendCommand('forward')">↑</button>
+                  <div></div>
+                  <button class="joystick-button" onclick="sendCommand('right')">→</button>
+                  <button class="joystick-button" onclick="sendCommand('left')">←</button>
+                  <button class="joystick-button" onclick="sendCommand('stop')">■</button>
+                  <div></div>
+                  <div></div>
+                  <button class="joystick-button" onclick="sendCommand('backward')">↓</button>
+                  <div></div>
+              </div>
+              <button class="blink-btn" onclick="sendCommand('blink')">Blink</button>
+              <button class="shutdown-btn" onclick="sendCommand('shutdown')">⏻</button>
+          </div>
+          
         </div>
     </div>
 </body>
