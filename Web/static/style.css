@@ -93,9 +93,9 @@ body {
   }
   
   .joystick-button {
-    width: 55px;
-    height: 55px;
-    font-size: 24px;
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
     color: #f1c40f;
     background-color: #444;
     border: none;
@@ -108,8 +108,8 @@ body {
   }
   
   .joystick-empty {
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
   }
   
   .side-buttons {
