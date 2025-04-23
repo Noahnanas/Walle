@@ -1,66 +1,47 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('/static/bg-space.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    overflow-x: hidden;
-}
-
-.logo-fixed {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    width: 100px;
-    opacity: 0.8;
-    z-index: 1000;
-}
-
 .container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
     align-items: stretch;
     padding: 20px;
-    min-height: 100vh;
-    box-sizing: border-box;
+    height: 100vh;
 }
 
 .video-box, .control-panel {
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    flex: 1;
     margin: 10px;
-    flex: 1 1 45%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 640px;
 }
 
 #video-stream {
     width: 100%;
+    height: auto;
     border-radius: 8px;
     border: 2px solid yellow;
 }
 
-.control-panel form {
+.inline-form {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-select, input[type=range], button {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
+select, input[type=range] {
+    flex: 1;
 }
 
 button {
+    padding: 8px 12px;
     background-color: #FFD700;
     color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -69,30 +50,32 @@ button:hover {
     background-color: #FFEC8B;
 }
 
+.joystick-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
 .joystick {
     display: grid;
     grid-template-columns: repeat(3, 60px);
     grid-template-rows: repeat(3, 60px);
     gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
 }
 
 .dir-btn {
-    font-size: 20px;
-    padding: 10px;
     background-color: #444;
     color: white;
-    border-radius: 8px;
     border: 1px solid #666;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 8px;
+    font-size: 20px;
 }
 
 #shutdown {
     background-color: #B22222;
-    color: white;
-    font-weight: bold;
-    margin-top: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 10px;
 }
