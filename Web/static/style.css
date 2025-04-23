@@ -34,6 +34,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
+    border: 2px solid #f1c40f;
 }
 
 .control-panel {
@@ -93,8 +94,8 @@ body {
   }
   
   .joystick-button {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     font-size: 28px;
     color: #f1c40f;
     background-color: #444;
@@ -108,8 +109,8 @@ body {
   }
   
   .joystick-empty {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
   }
   
   .side-buttons {
