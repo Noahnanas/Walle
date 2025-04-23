@@ -1,13 +1,13 @@
 import time
 
-_active = False
+active = False
 
 def run(robot):
-    global _active
-    _active = True
-    while _active:
+    global active
+    active = True
+    while active:
         time.sleep(0.05)
 
 def stop():
-    global _active
-    _active = False
+    global active
+    active = False
