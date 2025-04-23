@@ -1,81 +1,136 @@
-.container {
-    display: flex;
-    align-items: stretch;
-    padding: 20px;
-    height: 100vh;
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(#0a0a0a, #1e1e1e);
+    font-family: 'Segoe UI', sans-serif;
+    color: #f0f0f0;
 }
 
-.video-box, .control-panel {
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.video-panel, .control-panel {
     flex: 1;
-    margin: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    padding: 10px;
+    box-sizing: border-box;
     justify-content: space-between;
 }
 
-#video-stream {
+.video-panel img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 8px;
-    border: 2px solid yellow;
 }
 
-.inline-form {
+.control-panel {
+    min-width: 300px;
+    max-width: 450px;
+}
+
+.dropdown-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-select, input[type=range] {
+.dropdown-row label {
+    min-width: 60px;
+    margin-right: 10px;
+}
+
+.dropdown-row select,
+.dropdown-row .servo-slider {
     flex: 1;
+    margin-right: 10px;
 }
 
-button {
-    padding: 8px 12px;
-    background-color: #FFD700;
-    color: black;
+.send-button {
+    background-color: #f1c40f;
     border: none;
+    color: black;
+    padding: 6px 10px;
     border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-button:hover {
-    background-color: #FFEC8B;
+    font-weight: bold;
 }
 
 .joystick-row {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-end;
     margin-top: auto;
 }
 
 .joystick {
-    display: grid;
-    grid-template-columns: repeat(3, 60px);
-    grid-template-rows: repeat(3, 60px);
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.dir-btn {
-    background-color: #444;
+.joystick .row {
+    display: flex;
+    justify-content: center;
+    margin: 3px 0;
+}
+
+.control-button {
+    width: 50px;
+    height: 50px;
+    background-color: #555;
     color: white;
-    border: 1px solid #666;
-    border-radius: 8px;
     font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    margin: 0 5px;
+    cursor: pointer;
 }
 
-#shutdown {
-    background-color: #B22222;
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    border-radius: 10px;
+.blink-button {
+    background-color: #16a085;
+}
+
+.shutdown-button {
+    width: 50px;
+    height: 50px;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .video-panel, .control-panel {
+        width: 100%;
+        height: auto;
+    }
+
+    .joystick-row {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .shutdown-button {
+        margin-top: 10px;
+    }
 }
