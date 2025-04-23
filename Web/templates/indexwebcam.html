@@ -6,66 +6,56 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-    <img src="{{ url_for('static', filename='walle-logo.png') }}" id="logo">
-    </header>
+  <img src="{{ url_for('static', filename='walle-logo.png') }}" class="logo-fixed">
 
-    <div class="container">
-        <!-- Left side: video feed -->
-        <div class="video-box">
-            <img src="{{ url_for('video_feed') }}" id="video-stream">
-        </div>
-
-        <!-- Right side: control panel -->
-        <div class="control-panel">
-            <form method="POST" action="/set_mode">
-                <label for="mode">Mode:</label>
-                <select name="mode" id="mode">
-                    <option value="Manual">Manual</option>
-                    <option value="Auto">Auto</option>
-                    <option value="Follow">Follow</option>
-                    <option value="Sequence">Sequence</option>
-                    <option value="Sleep">Sleep</option>
-                </select>
-                <button type="submit">Set Mode</button>
-            </form>
-
-            <form>
-                <label for="emote">Emote:</label>
-                <select name="emote" id="emote">
-                    <option value="Smile">Smile</option>
-                    <option value="Angry">Angry</option>
-                    <option value="Surprised">Surprised</option>
-                </select>
-                <button type="button">Send Emote</button>
-            </form>
-
-            <form>
-                <label for="servo">Servo:</label>
-                <select name="servo" id="servo">
-                    <option value="Head">Head</option>
-                    <option value="ArmLeft">Arm Left</option>
-                    <option value="ArmRight">Arm Right</option>
-                </select>
-                <input type="range" min="0" max="180" value="90" id="servo-range">
-                <button type="button">Set Position</button>
-            </form>
-
-            <!-- Directional controls -->
-            <div class="joystick">
-                <button class="dir-btn" data-dir="forward">⬆</button>
-                <div>
-                    <button class="dir-btn" data-dir="left">⬅</button>
-                    <button class="dir-btn" data-dir="right">➡</button>
-                </div>
-                <button class="dir-btn" data-dir="backward">⬇</button>
-            </div>
-        </div>
-    </div>
-    <footer>
-      <form action="/shutdown" method="POST">
-          <button id="shutdown" type="submit">Shutdown RPi</button>
-      </form>
-    </footer>
+  <div class="container">
+      <div class="video-box">
+          <img id="video-stream" src="{{ url_for('video_feed') }}">
+      </div>
+  
+      <div class="control-panel">
+          <form method="POST" action="/set_mode">
+              <label for="mode">Choose Mode:</label>
+              <select name="mode" id="mode">
+                  <option value="Auto">Auto</option>
+                  <option value="Follow">Follow</option>
+                  <option value="Manual">Manual</option>
+                  <option value="Sequence">Sequence</option>
+                  <option value="Sleep">Sleep</option>
+              </select>
+  
+              <label for="emote">Choose Emote:</label>
+              <select name="emote" id="emote">
+                  <option value="Happy">Happy</option>
+                  <option value="Sad">Sad</option>
+                  <option value="Surprised">Surprised</option>
+              </select>
+  
+              <label for="servo">Servo Control:</label>
+              <select name="servo" id="servo">
+                  <option value="Head">Head</option>
+                  <option value="ArmLeft">Arm Left</option>
+                  <option value="ArmRight">Arm Right</option>
+              </select>
+              <input type="range" name="position" min="0" max="180">
+          </form>
+  
+          <div class="joystick">
+              <div></div>
+              <button class="dir-btn" onclick="move('forward')">↑</button>
+              <div></div>
+              <button class="dir-btn" onclick="move('left')">←</button>
+              <button class="dir-btn" onclick="blink()">Blink</button>
+              <button class="dir-btn" onclick="move('right')">→</button>
+              <div></div>
+              <button class="dir-btn" onclick="move('backward')">↓</button>
+              <div></div>
+          </div>
+  
+          <form action="/shutdown" method="POST">
+              <button id="shutdown" type="submit">Shutdown RPi</button>
+          </form>
+      </div>
+  </div>  
 </body>
 </html>
