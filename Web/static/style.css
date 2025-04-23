@@ -91,9 +91,6 @@ body {
   }
   
   .joystick-button {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
     color: #f1c40f;
     background-color: #444;
     border: none;
