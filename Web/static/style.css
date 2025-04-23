@@ -70,12 +70,12 @@ body {
 
   .joystick-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1; /* prend toute la hauteur possible */
     max-height: 100%; /* ne dépasse pas du parent */
-    overflow: hidden; /* masque tout dépassement si besoin */
+    gap: 20px;
+    margin-top: 20px;
   }
   
   .joystick-section {
