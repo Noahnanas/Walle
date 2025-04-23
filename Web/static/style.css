@@ -7,11 +7,14 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
+
 .container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: row;
+    height: 100vh;
     padding: 20px;
+    box-sizing: border-box;
+    justify-content: space-around;
 }
 
 .video-panel, .control-panel {
