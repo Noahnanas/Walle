@@ -116,7 +116,7 @@ body {
     gap: 10px;
   }
   
-  .blink-btn, .shutdown-btn {
+  .blink-btn{
     width: 60px;
     height: 60px;
     font-size: 16px;
@@ -126,9 +126,20 @@ body {
     border-radius: 8px;
     cursor: pointer;
   }
-  
+
+  .shutdown-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    background-color: #a80c0c;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
   .blink-btn:hover, .shutdown-btn:hover {
-    background-color: #a50c0c;
+    background-color: #333;
   }
 /* Responsive design */
 @media (max-width: 768px) {
