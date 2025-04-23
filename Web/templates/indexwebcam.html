@@ -2,26 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Robot Controller</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Robot Control Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Current Mode: {{ mode }}</h1>
+    <div class="container">
+        <!-- Left side: video feed -->
+        <div class="video-box">
+            <img src="{{ url_for('video_feed') }}" id="video-stream">
+        </div>
 
-    <form method="POST" action="/set_mode">
-        <label for="mode-select">Select Mode:</label>
-        <select name="mode" id="mode-select">
-            <option value="Auto">Auto</option>
-            <option value="Follow">Follow</option>
-            <option value="Manual">Manual</option>
-            <option value="Sequence">Sequence</option>
-            <option value="Sleep">Sleep</option>
-        </select>
-        <button type="submit">Apply</button>
-    </form>
+        <!-- Right side: control panel -->
+        <div class="control-panel">
+            <form method="POST" action="/set_mode">
+                <label for="mode">Mode:</label>
+                <select name="mode" id="mode">
+                    <option value="Manual">Manual</option>
+                    <option value="Auto">Auto</option>
+                    <option value="Follow">Follow</option>
+                    <option value="Sequence">Sequence</option>
+                    <option value="Sleep">Sleep</option>
+                </select>
+                <button type="submit">Set Mode</button>
+            </form>
 
-    <div class="video-container">
-        <img src="{{ url_for('video_feed') }}" width="640" height="480">
+            <form>
+                <label for="emote">Emote:</label>
+                <select name="emote" id="emote">
+                    <option value="Smile">Smile</option>
+                    <option value="Angry">Angry</option>
+                    <option value="Surprised">Surprised</option>
+                </select>
+                <button type="button">Send Emote</button>
+            </form>
+
+            <form>
+                <label for="servo">Servo:</label>
+                <select name="servo" id="servo">
+                    <option value="Head">Head</option>
+                    <option value="ArmLeft">Arm Left</option>
+                    <option value="ArmRight">Arm Right</option>
+                </select>
+                <input type="range" min="0" max="180" value="90" id="servo-range">
+                <button type="button">Set Position</button>
+            </form>
+
+            <!-- Directional controls -->
+            <div class="joystick">
+                <button class="dir-btn" data-dir="forward">⬆</button>
+                <div>
+                    <button class="dir-btn" data-dir="left">⬅</button>
+                    <button class="dir-btn" data-dir="right">➡</button>
+                </div>
+                <button class="dir-btn" data-dir="backward">⬇</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
