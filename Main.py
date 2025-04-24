@@ -16,7 +16,7 @@ flask_thread = threading.Thread(target=server.run_web_server)
 flask_thread.daemon = True
 flask_thread.start()
 
-init_socketio(server.socketio)
+#init_socketio(server.socketio)
 redirect_stdout()
 
 # modes

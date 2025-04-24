@@ -8,7 +8,7 @@ class Walle:
             self.serial = serial.Serial(port, baudrate=9600, timeout=1)
             print(f"✅ Connexion au port {port} réussie.")
         except serial.SerialException as e:
-            print(f"❌ Erreur : Impossible d'ouvrir le port {port}.\nDétail : {e}")
+            print(f"❌ Erreur : Impossible d'ouvrir le port {port}.\n")
             self.serial_available = False
             
         self.coef = {
