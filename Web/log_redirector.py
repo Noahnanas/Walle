@@ -17,7 +17,8 @@ class WebLogger:
             self.terminal.flush()
             self.buffer += message
             if '\n' in self.buffer:
-                print(f"[WebLogger] Emitting log: {self.buffer.strip()}")  # Debug
+                self.terminal.write(f"[WebLogger] Emitting log: {self.buffer.strip()}\n")
+                self.terminal.flush()
                 _socketio.emit('log_message', self.buffer.strip())
                 self.buffer = ""
 
