@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 import sys
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='threading')
 sys.stdout = WebLogger()
 
 init_socketio(socketio)
