@@ -12,7 +12,7 @@ last_command = None
 
 @app.route('/')
 def index():
-    return render_template('indexwebcam.html', 
+    return render_template('index.html', 
                            mode=selected_mode, 
                            emote=selected_emote, 
                            servo=selected_servo, 
