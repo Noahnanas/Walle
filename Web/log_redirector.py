@@ -22,7 +22,7 @@ class WebLogger:
                 self.buffer = ""
 
     def flush(self):
-        self.terminal.flush()
+        return self.terminal.flush()
 
     def isatty(self):
         return self.terminal.isatty()
