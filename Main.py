@@ -2,9 +2,11 @@ from Modes import Auto,Follow,Manual,Sequence,Sleep
 from Web import server
 from Mvt_walle import Walle
 from Modes_manager import ModeManager
+from Web.log_redirector import redirect_stdout
 import threading
 import time
 
+redirect_stdout()
 
 power=True
 
