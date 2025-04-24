@@ -2,6 +2,7 @@ from Modes import Auto,Follow,Manual,Sequence,Sleep
 from Web import server
 from Mvt_walle import Walle
 from Modes_manager import ModeManager
+from Web.log_redirector import init_socketio, redirect_stdout
 import threading
 import time
 
@@ -15,8 +16,8 @@ flask_thread = threading.Thread(target=server.run_web_server)
 flask_thread.daemon = True
 flask_thread.start()
 
-#init_socketio(server.socketio)
-#redirect_stdout()
+init_socketio(server.socketio)
+redirect_stdout()
 
 # modes
 modes = {
