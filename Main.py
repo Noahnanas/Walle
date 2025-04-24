@@ -17,7 +17,7 @@ flask_thread.daemon = True
 flask_thread.start()
 
 #init_socketio(server.socketio)
-redirect_stdout()
+#redirect_stdout()
 
 # modes
 modes = {
