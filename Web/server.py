@@ -1,14 +1,11 @@
 from flask import Flask, render_template, Response, request, redirect
 from Vision.cam import gen_frames
-from Web.log_redirector import init_socketio, redirect_stdout
 from flask_socketio import SocketIO
 import sys
 
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode='threading')
 
-init_socketio(socketio)
-redirect_stdout()
 
 selected_mode = "Manual"
 selected_emote = None
