@@ -31,7 +31,6 @@ current_mode_name = None
 
 while power:
     selected = server.get_selected_mode()
-    print("[DEBUG] Ceci est un test print Main.py")
 
     if selected != current_mode_name:
         print(f"[Main] Switching to mode: {selected}")
