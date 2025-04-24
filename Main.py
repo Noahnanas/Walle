@@ -5,16 +5,17 @@ from Modes_manager import ModeManager
 import threading
 import time
 
+power=True
+
 robot = Walle("/dev/ttyACM0")
 manager = ModeManager(robot)
 
-manager.launch_mode(Manual)
-
+#server run
 flask_thread = threading.Thread(target=server.run_web_server)
 flask_thread.daemon = True
 flask_thread.start()
 
-# Dictionnaire des modes disponibles
+# modes
 modes = {
     "Auto": Auto,
     "Follow": Follow,
@@ -24,16 +25,16 @@ modes = {
 }
 current_mode_name = None
 
-for i in range(0,60):
+while power:
     selected = server.get_selected_mode()
 
     if selected != current_mode_name:
-        print(f"Switching to mode: {selected}")
+        print(f"[Main] Switching to mode: {selected}")
         current_mode_name = selected
         manager.stop_mode()
         if selected in modes:
             manager.launch_mode(modes[selected])
-    time.sleep(1)
+    time.sleep(0.03)
     
 
 manager.stop_mode()

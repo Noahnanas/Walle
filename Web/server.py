@@ -3,26 +3,67 @@ from Vision.cam import gen_frames
 import threading
 
 app = Flask(__name__)
-selected_mode = "Manual"  # valeur par défaut
+
+selected_mode = "Manual"
+selected_emote = None
+selected_servo = None
+servo_position = 90
+last_command = None
 
 @app.route('/')
 def index():
-    return render_template('indexwebcam.html', mode=selected_mode)
+    return render_template('indexwebcam.html', 
+                           mode=selected_mode, 
+                           emote=selected_emote, 
+                           servo=selected_servo, 
+                           position=servo_position)
 
 @app.route('/set_mode', methods=["POST"])
 def set_mode():
     global selected_mode
     selected_mode = request.form.get("mode")
-    print(f"Mode received from web: {selected_mode}")
+    print(f"Mode reçu : {selected_mode}")
     return redirect('/')
+
+@app.route('/set_emote', methods=["POST"])
+def set_emote():
+    global selected_emote
+    selected_emote = request.form.get("emote")
+    print(f"Emote reçue : {selected_emote}")
+    return redirect('/')
+
+@app.route('/set_servo', methods=["POST"])
+def set_servo():
+    global selected_servo, servo_position
+    selected_servo = request.form.get("servo")
+    servo_position = int(request.form.get("position"))
+    print(f"Servo {selected_servo} à la position {servo_position}")
+    return redirect('/')
+
+@app.route('/send_command', methods=["POST"])
+def send_command():
+    global last_command
+    last_command = request.form.get("command")
+    print(f"Commande joystick reçue : {last_command}")
+    return ('', 204)  # No content
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 
 def get_selected_mode():
     return selected_mode
+
+def get_last_command():
+    return last_command
+
+def get_selected_emote():
+    return selected_emote
+
+def get_servo_data():
+    return selected_servo, servo_position
 
 def run_web_server():
     app.run(host='0.0.0.0', port=5000)
