@@ -13,14 +13,10 @@ class WebLogger:
 
     def write(self, message):
         self.terminal.write(message)  # écrit dans le terminal
-        self.terminal.flush()
         self.buffer += message
         if '\n' in self.buffer:
             _socketio.emit('log_message', self.buffer.strip())
             self.buffer = ""
-
-    def flush(self):
-        pass
 
 def redirect_stdout():
     sys.stdout = WebLogger()
