@@ -5,6 +5,7 @@ from Modes_manager import ModeManager
 import threading
 import time
 
+
 power=True
 
 robot = Walle("/dev/ttyACM0")

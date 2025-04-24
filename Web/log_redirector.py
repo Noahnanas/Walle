@@ -7,10 +7,21 @@ def init_socketio(socketio_instance):
     _socketio = socketio_instance
 
 class WebLogger:
-    def write(self, msg):
-        if msg.strip() and _socketio:
-            _socketio.emit('log_message', msg.strip())
-    def flush(self): pass
+    def __init__(self):
+        self.terminal = sys.__stdout__  # garde accès au terminal
+        self.buffer = ""
+
+    def write(self, message):
+        self.terminal.write(message)  # écrit dans le terminal
+        self.terminal.flush()
+        self.buffer += message
+        if '\n' in self.buffer:
+            from server import socketio  # importe à l’intérieur
+            socketio.emit('log_message', self.buffer.strip())
+            self.buffer = ""
+
+    def flush(self):
+        pass
 
 def redirect_stdout():
     sys.stdout = WebLogger()
