@@ -6,8 +6,6 @@ from Web.log_redirector import redirect_stdout
 import threading
 import time
 
-redirect_stdout()
-
 power=True
 
 robot = Walle("/dev/ttyACM0")
@@ -17,6 +15,8 @@ manager = ModeManager(robot)
 flask_thread = threading.Thread(target=server.run_web_server)
 flask_thread.daemon = True
 flask_thread.start()
+
+redirect_stdout()
 
 # modes
 modes = {
