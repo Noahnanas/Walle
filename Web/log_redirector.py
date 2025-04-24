@@ -16,8 +16,7 @@ class WebLogger:
         self.terminal.flush()
         self.buffer += message
         if '\n' in self.buffer:
-            from server import socketio  # importe à l’intérieur
-            socketio.emit('log_message', self.buffer.strip())
+            _socketio.emit('log_message', self.buffer.strip())
             self.buffer = ""
 
     def flush(self):
