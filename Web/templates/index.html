@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WALL-E Controller</title>
+    <title>WALL-E</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -90,5 +90,21 @@
             });
         }
     </script>
+
+  <div class="log-panel" id="log-panel">
+      <h3>Console Log</h3>
+      <pre id="log-content"></pre>
+  </div>
+  
+  <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+  <script>
+      const socket = io();
+      socket.on('log_message', function(data) {
+          const logArea = document.getElementById("log-content");
+          logArea.textContent += data + "\n";
+          logArea.scrollTop = logArea.scrollHeight;
+      });
+  </script>
+  
 </body>
 </html>

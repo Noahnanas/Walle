@@ -1,8 +1,14 @@
 from flask import Flask, render_template, Response, request, redirect
 from Vision.cam import gen_frames
-import threading
+from logger_redirector import init_socketio, redirect_stdout
+from flask_socketio import SocketIO
+
 
 app = Flask(__name__)
+socketio = SocketIO(app)
+
+init_socketio(socketio)
+redirect_stdout()
 
 selected_mode = "Manual"
 selected_emote = None
@@ -22,14 +28,14 @@ def index():
 def set_mode():
     global selected_mode
     selected_mode = request.form.get("mode")
-    print(f"Mode reçu : {selected_mode}")
+    print(f"[Web] Mode reçu : {selected_mode}")
     return redirect('/')
 
 @app.route('/set_emote', methods=["POST"])
 def set_emote():
     global selected_emote
     selected_emote = request.form.get("emote")
-    print(f"Emote reçue : {selected_emote}")
+    print(f"[Web] Emote reçue : {selected_emote}")
     return redirect('/')
 
 @app.route('/set_servo', methods=["POST"])
@@ -37,14 +43,14 @@ def set_servo():
     global selected_servo, servo_position
     selected_servo = request.form.get("servo")
     servo_position = int(request.form.get("position"))
-    print(f"Servo {selected_servo} à la position {servo_position}")
+    print(f"[Web] Servo {selected_servo} à la position {servo_position}")
     return redirect('/')
 
 @app.route('/send_command', methods=["POST"])
 def send_command():
     global last_command
     last_command = request.form.get("command")
-    print(f"Commande joystick reçue : {last_command}")
+    print(f"[Web] Commande joystick reçue : {last_command}")
     return ('', 204)  # No content
 
 @app.route('/video_feed')
@@ -66,4 +72,4 @@ def get_servo_data():
     return selected_servo, servo_position
 
 def run_web_server():
-    app.run(host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000)

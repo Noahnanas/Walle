@@ -144,6 +144,18 @@ body {
   .blink-btn:hover, .shutdown-btn:hover {
     background-color: #333;
   }
+
+  .log-panel {
+    background-color: #000;
+    color: #0f0;
+    font-family: monospace;
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px;
+  }
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -165,3 +177,5 @@ body {
         margin-top: 10px;
     }
 }
+
+
