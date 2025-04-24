@@ -2,6 +2,7 @@ import threading
 
 class ModeManager:
     def __init__(self, robot):
+        print("[DEBUG] ModeManager initialisé")
         self.robot = robot
         self.current_mode = None
         self.mode_thread = None
