@@ -158,6 +158,20 @@ body {
     white-space: pre-wrap;
 }
 
+/* Scrollbar personnalisée pour Webkit (Chrome, Edge, Safari) */
+#log-panel::-webkit-scrollbar {
+    width: 10px;
+    background: #222;
+}
+
+#log-panel::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+#log-panel::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
 
 /* Responsive design */
 @media (max-width: 768px) {
