@@ -145,16 +145,17 @@ body {
     background-color: #333;
   }
 
-  .log-panel {
-    background-color: #000;
-    color: #0f0;
+.log-panel {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #f1c40f;
     font-family: monospace;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 15px;
+    border-radius: 12px;
     max-height: 200px;
     overflow-y: auto;
-    margin: 10px;
-  }
+    margin: 15px;
+    border: 2px solid #f1c40f;
+}
 
 /* Responsive design */
 @media (max-width: 768px) {
