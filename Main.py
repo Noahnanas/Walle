@@ -8,9 +8,6 @@ import time
 
 power=True
 
-init_socketio(server.socketio)
-redirect_stdout()
-
 robot = Walle("/dev/ttyACM0")
 manager = ModeManager(robot)
 
@@ -18,6 +15,9 @@ manager = ModeManager(robot)
 flask_thread = threading.Thread(target=server.run_web_server)
 flask_thread.daemon = True
 flask_thread.start()
+
+init_socketio(server.socketio)
+redirect_stdout()
 
 # modes
 modes = {
