@@ -100,7 +100,7 @@
   <script>
       const socket = io();
       socket.on('log_message', function(data) {
-          const logArea = document.getElementById("log-content");
+          const logArea = document.getElementById("log-panel");
           logArea.textContent += data + "\n";
           requestAnimationFrame(() => {
               logArea.scrollTop = logArea.scrollHeight;
