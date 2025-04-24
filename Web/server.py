@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Response, request, redirect
 from Vision.cam import gen_frames
-from logger_redirector import init_socketio, redirect_stdout
+from Web.log_redirector import init_socketio, redirect_stdout
 from flask_socketio import SocketIO
 
 
