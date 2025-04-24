@@ -155,15 +155,9 @@ body {
     overflow-y: auto;
     margin: 15px;
     border: 2px solid #f1c40f;
-}
-
-#log-content {
-    max-height: 30vh;
-    overflow-y: auto;
-    font-size: 0.95em;
-    margin: 0;
     white-space: pre-wrap;
 }
+
 
 /* Responsive design */
 @media (max-width: 768px) {
