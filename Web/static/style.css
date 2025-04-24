@@ -27,6 +27,7 @@ body {
     box-sizing: border-box;
     justify-content: space-between;
     margin: 15px;
+    border: 2px solid #f1c40f;
 }
 
 .video-panel img {
@@ -34,7 +35,6 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
-    border: 2px solid #f1c40f;
 }
 
 .control-panel {

@@ -102,7 +102,9 @@
       socket.on('log_message', function(data) {
           const logArea = document.getElementById("log-content");
           logArea.textContent += data + "\n";
-          logArea.scrollTop = logArea.scrollHeight;
+          requestAnimationFrame(() => {
+              logArea.scrollTop = logArea.scrollHeight;
+          });
       });
   </script>
   
