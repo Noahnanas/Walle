@@ -29,14 +29,14 @@ def set_mode():
     global selected_mode
     selected_mode = request.form.get("mode")
     print(f"[Web] Mode reçu : {selected_mode}")
-    return redirect('/')
+    return ('', 204)
 
 @app.route('/set_emote', methods=["POST"])
 def set_emote():
     global selected_emote
     selected_emote = request.form.get("emote")
     print(f"[Web] Emote reçue : {selected_emote}")
-    return redirect('/')
+    return ('', 204)
 
 @app.route('/set_servo', methods=["POST"])
 def set_servo():
@@ -44,7 +44,7 @@ def set_servo():
     selected_servo = request.form.get("servo")
     servo_position = int(request.form.get("position"))
     print(f"[Web] Servo {selected_servo} à la position {servo_position}")
-    return redirect('/')
+    return ('', 204)
 
 @app.route('/send_command', methods=["POST"])
 def send_command():
