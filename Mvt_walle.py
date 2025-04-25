@@ -6,12 +6,13 @@ class Walle:
         self.serial_available = True
         try:
             self.serial = serial.Serial(port, baudrate=9600, timeout=1)
-            print(f"✅ Connexion au port {port} réussie.")
+            print(f"[Mvt_Walle] ✅ Connexion au port {port} réussie.")
         except serial.SerialException as e:
-            print(f"❌ Erreur : Impossible d'ouvrir le port {port}.\n")
+            print(f"[Mvt_Walle] ❌ Erreur : Impossible d'ouvrir le port {port}.\n")
             self.serial_available = False
+        
             
-        self.coef = {
+        self.coef_init = {
             "lid_L":1.0,
             "lid_R":1.0,
             "eyebrow_L": 0.0,
@@ -24,27 +25,32 @@ class Walle:
             "neck_L":0.0,
             "neck_LR":0.0,
             "neck_level":0.5,
-            "neck_angle":0.0
+            "neck_angle":0.0,
+            "arm_L":0.5,
+            "arm_R":0.5,
+            "hand_L":1.0,
+            "hand_R":1.0
         }
+        self.coef = self.coef_init.copy()
         #self.update(self.coef.keys())
 
     def update(self, tab):
         res = ""
         for key in tab:
             res += f"{key}%{self.coef[key]}\n"
-            print(f"🔄 {key} = {self.coef[key]}")
+            print(f"[Mvt_Walle] 🔄 {key} = {self.coef[key]}")
 
         if self.serial_available:
             self.serial.write(res.encode())
-            print("➡️ Envoyé à l'Arduino:\n")
+            print("[Mvt_Walle] ➡️ Envoyé à l'Arduino:\n")
         else:
-            print("Ereur envoie arduino\n")
+            print("[Mvt_Walle] Erreur envoie arduino\n")
 
     def blink(self):
         self.coef['lid_L']=0
         self.coef['lid_R']=0
         self.update(['lid_L','lid_R'])
-        print("WALL-E cligne des yeux. 1")
+        print("[Mvt_Walle] WALL-E cligne des yeux. 1")
         time.sleep(0.15)
         self.coef['lid_L']=1
         self.coef['lid_R']=1
@@ -52,7 +58,7 @@ class Walle:
         
     def manual(self,name,angle):
         self.coef[name]=angle
-        print(self.coef)
+        print(f"[Mvt_Walle] {self.coef}")
         self.update([name])
 
     def headAngle(self, angle=None):
@@ -87,7 +93,7 @@ class Walle:
     def sadness(self, angle):
         self.coef["eye_sad"] = angle
         self.headAngle()
-        print(f"Niveau de tristesse réglé à {angle}")
+        print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}")
         
     def neckLevel(self, headLevel=None):
         neckAngle = self.coef["neck_angle"]
@@ -125,21 +131,12 @@ class Walle:
         time.sleep(1)
         self.sadness(0)
         
-    def neutral(self):
-        self.coef = {
-            "lid_L":0.0,
-            "lid_L":0.0,
-            "eyebrow_L": 0.0,
-            "eyebrow_R": 0.0,
-            "UD_L": 0.55,
-            "UD_R": 0.6,
-            "eye_angle": 0.0,
-            "eye_sad": 0.0
-        }
+    def sleep(self):
+        self.coef = self.coef_init.copy()
         self.update(self.coef.keys())
         
 
     def close(self):
         if self.serial_available:
             self.serial.close()
-        print("Port série fermé.")
+        print("[Mvt_Walle] Port série fermé.")
