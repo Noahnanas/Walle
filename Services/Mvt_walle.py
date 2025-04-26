@@ -153,8 +153,8 @@ class Walle:
         print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}")
         
     def emote(self, name):
-        if name in emotes.EMOTES:
-            emotes.EMOTES[name](self)
+        if name in Emotes.EMOTES:
+            Emotes.EMOTES[name](self)
         
 
     def sleep(self):
