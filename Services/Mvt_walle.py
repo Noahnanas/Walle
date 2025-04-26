@@ -1,4 +1,5 @@
 from Services import Emotes
+from Sounds.SoundPlayer import SoundPlayer
 import serial
 import time
 
@@ -35,6 +36,8 @@ class Walle:
         }
         self.coef = self.coef_init.copy()
         #self.update(self.coef.keys())
+        
+        self.sound = SoundPlayer()
         
 
     def update(self, tab):
@@ -156,6 +159,9 @@ class Walle:
         if name in Emotes.EMOTES:
             Emotes.EMOTES[name](self)
         
+    def sound(self, name):
+        if not self.sound.is_playing():
+            self.sound.play(name)
 
     def sleep(self):
         self.coef = self.coef_init.copy()

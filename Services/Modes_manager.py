@@ -1,9 +1,8 @@
 import threading
 
 class ModeManager:
-    def __init__(self, robot, sound, serveur):
+    def __init__(self, robot, serveur):
         self.robot = robot
-        self.sound = sound
         self.serveur = serveur
         self.current_mode = None
         self.mode_thread = None
@@ -19,7 +18,7 @@ class ModeManager:
 
     def _run_mode(self):
         try:
-            self.current_mode.run(self.robot,self.sound,self.serveur)
+            self.current_mode.run(self.robot,self.serveur)
         except Exception as e:
             print(f"[ModeManager] Mode crashed: {e}")
 

@@ -3,7 +3,7 @@ from Web import server
 from Services.Mvt_walle import Walle
 from Services.Modes_manager import ModeManager
 from Web.log_redirector import init_socketio, redirect_stdout
-from Sounds.Test_son import SoundPlayer
+
 import threading
 import time
 import os
@@ -16,8 +16,7 @@ flask_thread.daemon = True
 flask_thread.start()
 
 robot = Walle("/dev/ttyACM0")
-sound = SoundPlayer()
-manager = ModeManager(robot,sound,server)
+manager = ModeManager(robot,server)
 
 #log redirection
 init_socketio(server.socketio)

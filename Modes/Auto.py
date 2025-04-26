@@ -2,7 +2,7 @@ import time
 
 active = False
 
-def run(robot,sound,server):
+def run(robot,server):
     global active
     active = True
     while active:

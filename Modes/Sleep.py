@@ -2,9 +2,10 @@ import time
 
 active = False
 
-def run(robot,sound,server):
+def run(robot,server):
     global active
     active = True
+    
     while active:
         time.sleep(0.05)
 
