@@ -34,7 +34,7 @@ def run(robot,sound,server):
             
         servo, position = server.get_servo_data()
         if servo != None:
-            print(f"[Manual] Servo {servo} to position {position}")
+            print(f"[Manual] Servo {servo} to position {position/180}")
             robot.manual(servo,position/180)
             
         time.sleep(0.05)
