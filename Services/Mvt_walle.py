@@ -10,7 +10,6 @@ class Walle:
         except serial.SerialException as e:
             print(f"[Mvt_Walle] ❌ Erreur : Impossible d'ouvrir le port {port}.\n")
             self.serial_available = False
-        
             
         self.coef_init = {
             "lid_L":1.0,
@@ -29,10 +28,13 @@ class Walle:
             "arm_L":0.5,
             "arm_R":0.5,
             "hand_L":1.0,
-            "hand_R":1.0
+            "hand_R":1.0,
+            "speed_L":0.5,
+            "speed_R":0.5
         }
         self.coef = self.coef_init.copy()
         #self.update(self.coef.keys())
+        
 
     def update(self, tab):
         res = ""
@@ -131,6 +133,25 @@ class Walle:
         time.sleep(1)
         self.sadness(0)
         
+    def forward(self, speed=0.5):
+        self.coef["speed_L"] = speed
+        self.coef["speed_R"] = speed
+        self.update(["speed_L", "speed_R"])
+        print(f"[Mvt_Walle] WALL-E avance à la vitesse {speed}")
+        
+    def backward(self, speed=0.5):
+        self.coef["speed_L"] = -speed
+        self.coef["speed_R"] = -speed
+        self.update(["speed_L", "speed_R"])
+        print(f"[Mvt_Walle] WALL-E recule à la vitesse {speed}")
+        
+    def turn (self, speed=0):
+        self.coef["speed_L"] = -speed
+        self.coef["speed_R"] = speed
+        self.update(["speed_L", "speed_R"])
+        print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}")
+        
+
     def sleep(self):
         self.coef = self.coef_init.copy()
         self.update(self.coef.keys())

@@ -38,3 +38,4 @@ class ModeManager:
 
     def get_active_mode_name(self):
         return self.current_mode.__name__ if self.current_mode else "None"
+    

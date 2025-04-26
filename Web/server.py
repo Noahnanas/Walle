@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Response, request, redirect
 from Vision.cam import gen_frames
 from flask_socketio import SocketIO
-import sys
 
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode='threading')
@@ -12,6 +11,7 @@ selected_emote = None
 selected_servo = None
 servo_position = 90
 last_command = None
+Shutdown = False
 
 @app.route('/')
 def index():
@@ -47,6 +47,9 @@ def set_servo():
 def send_command():
     global last_command
     last_command = request.form.get("command")
+    if last_command == "shutdown":
+        global Shutdown
+        Shutdown = True
     print(f"[Web] Commande joystick reçue : {last_command}")
     return ('', 204)  # No content
 
@@ -54,18 +57,27 @@ def send_command():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-
 def get_selected_mode():
     return selected_mode
 
 def get_last_command():
-    return last_command
+    temp=last_command
+    last_command = None
+    return temp
+
+def get_shudown():
+    return Shutdown
 
 def get_selected_emote():
-    return selected_emote
+    temp=selected_emote
+    selected_emote = None
+    return temp
 
 def get_servo_data():
+    temp1=selected_servo
+    temp2=servo_position
+    selected_servo = None
+    servo_position = 90
     return selected_servo, servo_position
 
 def run_web_server():

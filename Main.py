@@ -1,11 +1,12 @@
 from Modes import Auto,Follow,Manual,Sequence,Sleep
 from Web import server
-from Mvt_walle import Walle
-from Modes_manager import ModeManager
+from Services.Mvt_walle import Walle
+from Services.Modes_manager import ModeManager
 from Web.log_redirector import init_socketio, redirect_stdout
 from Sounds.Test_son import SoundPlayer
 import threading
 import time
+import os
 
 power=True
 
@@ -42,6 +43,11 @@ while power:
         if selected in modes:
             manager.launch_mode(modes[selected])
             
+    if server.get_shudown():
+        print("[Main] Shutdown command received.")
+        power = False
+        break
+            
     
     time.sleep(0.03)
     
@@ -50,3 +56,4 @@ manager.stop_mode()
 robot.neutral()
 robot.close()
 
+#os.system("sudo shutdown -h now")
