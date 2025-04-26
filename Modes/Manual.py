@@ -8,6 +8,7 @@ def run(robot,sound,server):
     while active:
         command = server.get_last_command()
         if command!= None:
+            print(f"[Manual] Command received: {command}")
             command = server.get_last_command()
             if command == "left":
                 robot.turn(-0.5)
