@@ -1,3 +1,4 @@
+from Services import Emotes
 import serial
 import time
 
@@ -40,7 +41,7 @@ class Walle:
         res = ""
         for key in tab:
             res += f"{key}%{self.coef[key]}\n"
-            print(f"[Mvt_Walle] 🔄 {key} = {self.coef[key]}")
+            #print(f"[Mvt_Walle] 🔄 {key} = {self.coef[key]}")
 
         if self.serial_available:
             self.serial.write(res.encode())
@@ -150,6 +151,10 @@ class Walle:
         self.coef["speed_R"] = speed
         self.update(["speed_L", "speed_R"])
         print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}")
+        
+    def emote(self, name):
+        if name in emotes.EMOTES:
+            emotes.EMOTES[name](self)
         
 
     def sleep(self):
