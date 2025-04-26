@@ -31,9 +31,9 @@
             <form class="dropdown-row" action="/set_emote" method="POST">
                 <label for="emote-select">Emote:</label>
                 <select id="emote-select" name="emote">
+                    <option>Auto_adjust</option>
                     <option>Happy</option>
-                    <option>Sad</option>
-                    <option>Angry</option>!Yb gvfci
+                    <option>Angry</option>
                 </select>
                 <button class="send-button" type="submit">Envoyer</button>
             </form>
@@ -42,9 +42,21 @@
             <form class="dropdown-row" action="/set_servo" method="POST">
                 <label for="servo-select">Servo:</label>
                 <select id="servo-select" name="servo">
-                    <option>Head</option>
-                    <option>Arm Left</option>
-                    <option>Arm Right</option>
+                    <option value="lid_L">lid_L</option>
+                    <option value="lid_R">lid_R</option>
+                    <option value="eyebrow_L">eyebrow_L</option>
+                    <option value="eyebrow_R">eyebrow_R</option>
+                    <option value="UD_L">UD_L</option>
+                    <option value="UD_R">UD_R</option>
+                    <option value="neck_U">neck_U</option>
+                    <option value="neck_L">neck_L</option>
+                    <option value="neck_LR">neck_LR</option>
+                    <option value="arm_L">arm_L</option>
+                    <option value="arm_R">arm_R</option>
+                    <option value="hand_L">hand_L</option>
+                    <option value="hand_R">hand_R</option>
+                    <option value="speed_L">speed_L</option>
+                    <option value="speed_R">speed_R</option>
                 </select>
                 <input type="range" name="position" min="0" max="180" value="90" class="servo-slider">
                 <button class="send-button" type="submit">Envoyer</button>

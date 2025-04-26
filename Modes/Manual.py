@@ -5,6 +5,10 @@ active = False
 def run(robot,sound,server):
     global active
     active = True
+    dump = server.get_last_command()
+    dump = server.get_selected_emote()
+    dump = server.get_servo_data()
+    
     while active:
         command = server.get_last_command()
         if command!= None:

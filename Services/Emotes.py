@@ -22,6 +22,6 @@ def happy(walle):
     walle.blink()
 
 EMOTES = {
-    "auto_adjust": auto_adjust,
-    "happy": happy
+    "Auto_adjust": auto_adjust,
+    "Happy": happy
 }
