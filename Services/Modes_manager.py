@@ -2,7 +2,6 @@ import threading
 
 class ModeManager:
     def __init__(self, robot, sound, serveur):
-        print("[DEBUG] ModeManager initialisé")
         self.robot = robot
         self.sound = sound
         self.serveur = serveur

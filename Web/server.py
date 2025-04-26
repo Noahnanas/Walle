@@ -61,7 +61,8 @@ def get_selected_mode():
     return selected_mode
 
 def get_last_command():
-    temp=last_command
+    global last_command
+    temp = last_command
     last_command = None
     return temp
 
@@ -69,16 +70,18 @@ def get_shudown():
     return Shutdown
 
 def get_selected_emote():
-    temp=selected_emote
+    global selected_emote
+    temp = selected_emote
     selected_emote = None
     return temp
 
 def get_servo_data():
-    temp1=selected_servo
-    temp2=servo_position
+    global selected_servo, servo_position
+    temp1 = selected_servo
+    temp2 = servo_position
     selected_servo = None
     servo_position = 90
-    return selected_servo, servo_position
+    return temp1, temp2
 
 def run_web_server():
     socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False)
