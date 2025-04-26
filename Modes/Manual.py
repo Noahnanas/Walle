@@ -10,18 +10,19 @@ def run(robot,sound,server):
         if command!= None:
             print(f"[Manual] Command received: {command}")
             command = server.get_last_command()
-            if command == "left":
-                robot.turn(-0.5)
-            elif command == "right":
-                robot.turn(0.5)
-            elif command == "forward":
-                robot.forward()
-            elif command == "backward":
-                robot.backward()
-            elif command == "stop":
-                pass
-            elif command == "blink":
-                robot.blink()
+            match command:
+                case "left":
+                    robot.turn(-0.5)
+                case "right":
+                    robot.turn(0.5)
+                case "forward":
+                    robot.forward()
+                case "backward":
+                    robot.backward()
+                case "stop":
+                    pass
+                case "blink":
+                    robot.blink()
                 
         emote = server.get_selected_emote()
             

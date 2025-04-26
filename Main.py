@@ -53,7 +53,7 @@ while power:
     
 
 manager.stop_mode()
-robot.neutral()
+robot.sleep()
 robot.close()
 
 #os.system("sudo shutdown -h now")
