@@ -16,6 +16,7 @@ def run(robot,sound,server):
                 case "right":
                     robot.turn(0.5)
                 case "forward":
+                    print("[Manual] Moving forward")
                     robot.forward()
                 case "backward":
                     robot.backward()
