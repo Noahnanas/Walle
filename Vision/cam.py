@@ -19,7 +19,9 @@ picam2.start()
 #globale variables
 last_frame = None
 last_results = None
-head_tilt_history=[0]*20
+head_tilt_history=[0]*10
+x_position_history = [0]*5
+y_position_history = [0]*5
 
 def gen_frames():
     global last_frame, last_results
@@ -51,17 +53,20 @@ def frame_process():
         nose_tip = face_landmarks.landmark[1]  
 
         # position
-        x_position = (nose_tip.x - 0.5) * 2
-        y_position = (nose_tip.y - 0.5) * -2
+        x_position_history.pop(0)
+        x_position_history.append(nose_tip.x)
+        x_position= sum(x_position_history) / len(x_position_history)
+        y_position_history.pop(0)
+        y_position_history.append(nose_tip.y)
+        y_position= sum(y_position_history) / len(y_position_history)
 
         # head angle
         dx = R_eye_bottom.x - L_eye_bottom.x
         dy = R_eye_bottom.y - L_eye_bottom.y
         angle = np.arctan2(dy, dx)
         head_tilt_history.pop(0)
-        head_tilt_history.append(np.clip(angle / (np.pi / 4), -1, 1))
-        head_tilt=sum(head_tilt_history)/len(head_tilt_history)
-
+        head_tilt_history.append((angle / (np.pi / 4) + 1) / 2)
+        head_tilt = sum(head_tilt_history) / len(head_tilt_history)
 
         return [x_position, y_position, head_tilt]
     else:
