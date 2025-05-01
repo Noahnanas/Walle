@@ -2,6 +2,7 @@ import time
 import cv2
 from picamera2 import Picamera2
 import mediapipe as mp
+import numpy as np
 
 mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=False)
@@ -15,10 +16,18 @@ preview_config = picam2.create_preview_configuration(
 picam2.configure(preview_config)
 picam2.start()
 
+#globale variables
+last_frame = None
+last_results = None
+head_tilt_history=[0]*20
+
 def gen_frames():
+    global last_frame, last_results
     while True:
         frame = picam2.capture_array()
         results = face_mesh.process(frame)
+        last_frame = frame
+        last_results = results
         h, w, _ = frame.shape
         if results.multi_face_landmarks:
             for face_landmarks in results.multi_face_landmarks:
@@ -31,3 +40,29 @@ def gen_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
         time.sleep(0.03)
+
+
+def frame_process():
+    global last_frame, last_results
+    if last_results.multi_face_landmarks:
+        face_landmarks=last_results.multi_face_landmarks
+        L_eye_bottom = face_landmarks.landmark[145] 
+        R_eye_bottom = face_landmarks.landmark[374] 
+        nose_tip = face_landmarks.landmark[1]  
+
+        # position
+        x_position = (nose_tip.x - 0.5) * 2
+        y_position = (nose_tip.y - 0.5) * -2
+
+        # head angle
+        dx = R_eye_bottom.x - L_eye_bottom.x
+        dy = R_eye_bottom.y - L_eye_bottom.y
+        angle = np.arctan2(dy, dx)
+        head_tilt_history.pop(0)
+        head_tilt_history.append(np.clip(angle / (np.pi / 4), -1, 1))
+        head_tilt=sum(head_tilt_history)/len(head_tilt_history)
+
+        
+        return [x_position, y_position, head_tilt]
+    else:
+        return None
