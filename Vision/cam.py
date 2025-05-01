@@ -41,6 +41,7 @@ def gen_frames():
             continue
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+        frame_process()
         time.sleep(0.03)
 
 
@@ -55,10 +56,8 @@ def frame_process():
         # position
         x_position_history.pop(0)
         x_position_history.append(nose_tip.x)
-        x_position= round(sum(x_position_history) / len(x_position_history),2)
         y_position_history.pop(0)
         y_position_history.append(nose_tip.y)
-        y_position= round(sum(y_position_history) / len(y_position_history),2)
 
         # head angle
         dx = R_eye_bottom.x - L_eye_bottom.x
@@ -66,8 +65,11 @@ def frame_process():
         angle = np.arctan2(dy, dx)
         head_tilt_history.pop(0)
         head_tilt_history.append((angle / (np.pi / 4) + 1) / 2)
-        head_tilt = round(sum(head_tilt_history) / len(head_tilt_history),2)
-
-        return [x_position, y_position, head_tilt]
     else:
         return None
+    
+def get_head_factor():
+    x_position= round(sum(x_position_history) / len(x_position_history),2)
+    y_position= round(sum(y_position_history) / len(y_position_history),2)
+    head_tilt = round(sum(head_tilt_history) / len(head_tilt_history),2)
+    return [x_position, y_position, head_tilt]
