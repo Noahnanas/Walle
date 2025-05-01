@@ -9,7 +9,7 @@ def run(robot,server):
         head_factor=frame_process()
         if head_factor is not None:
             print(f"[Auto] Head factor: {head_factor}")
-        #time.sleep(0.5)
+            time.sleep(0.5)
 
 def stop():
     global active
