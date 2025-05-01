@@ -45,7 +45,7 @@ def gen_frames():
 def frame_process():
     global last_frame, last_results
     if last_results.multi_face_landmarks:
-        face_landmarks=last_results.multi_face_landmarks
+        face_landmarks=last_results.multi_face_landmarks[0]
         L_eye_bottom = face_landmarks.landmark[145] 
         R_eye_bottom = face_landmarks.landmark[374] 
         nose_tip = face_landmarks.landmark[1]  
@@ -62,7 +62,7 @@ def frame_process():
         head_tilt_history.append(np.clip(angle / (np.pi / 4), -1, 1))
         head_tilt=sum(head_tilt_history)/len(head_tilt_history)
 
-        
+
         return [x_position, y_position, head_tilt]
     else:
         return None
