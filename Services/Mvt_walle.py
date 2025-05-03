@@ -10,7 +10,7 @@ class Walle:
             self.serial = serial.Serial(port, baudrate=9600, timeout=1)
             print(f"[Mvt_Walle] ✅ Connexion au port {port} réussie.")
         except serial.SerialException as e:
-            print(f"[Mvt_Walle] ❌ Erreur : Impossible d'ouvrir le port {port}.\n")
+            print(f"[Mvt_Walle] ❌ Erreur : Impossible d'ouvrir le port {port}.")
             self.serial_available = False
             
         self.coef_init = {
@@ -48,15 +48,15 @@ class Walle:
 
         if self.serial_available:
             self.serial.write(res.encode())
-            print("[Mvt_Walle] ➡️ Envoyé à l'Arduino:")
+            print("[Mvt_Walle] ➡️ Envoyé à l'Arduino\n")
         else:
-            print("[Mvt_Walle] Erreur envoie arduino")
+            print("[Mvt_Walle] Erreur envoie arduino\n")
 
     def blink(self):
         self.coef['lid_L']=0
         self.coef['lid_R']=0
         self.update(['lid_L','lid_R'])
-        print("[Mvt_Walle] WALL-E cligne des yeux. 1\n")
+        print("[Mvt_Walle] WALL-E cligne des yeux. 1")
         time.sleep(0.15)
         self.coef['lid_L']=1
         self.coef['lid_R']=1
@@ -64,7 +64,7 @@ class Walle:
         
     def manual(self,name,angle):
         self.coef[name]=angle
-        print(f"[Mvt_Walle] {name} réglé à {angle}\n")
+        print(f"[Mvt_Walle] {name} réglé à {angle}")
         self.update([name])
 
     def headAngle(self, angle=None):
@@ -99,7 +99,7 @@ class Walle:
     def sadness(self, angle):
         self.coef["eye_sad"] = angle
         self.headAngle()
-        print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}\n")
+        print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}")
         
     def neckLevel(self, headLevel=None):
         neckAngle = self.coef["neck_angle"]
@@ -141,19 +141,19 @@ class Walle:
         self.coef["speed_L"] = speed
         self.coef["speed_R"] = speed
         self.update(["speed_L", "speed_R"])
-        print(f"[Mvt_Walle] WALL-E avance à la vitesse {speed}\n")
+        print(f"[Mvt_Walle] WALL-E avance à la vitesse {speed}")
         
     def backward(self, speed=0.5):
         self.coef["speed_L"] = -speed
         self.coef["speed_R"] = -speed
         self.update(["speed_L", "speed_R"])
-        print(f"[Mvt_Walle] WALL-E recule à la vitesse {speed}\n")
+        print(f"[Mvt_Walle] WALL-E recule à la vitesse {speed}")
         
     def turn (self, speed=0):
         self.coef["speed_L"] = -speed
         self.coef["speed_R"] = speed
         self.update(["speed_L", "speed_R"])
-        print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}\n")
+        print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}")
         
     def emote(self, name):
         if name in Emotes.EMOTES:
@@ -171,4 +171,4 @@ class Walle:
     def close(self):
         if self.serial_available:
             self.serial.close()
-        print("[Mvt_Walle] Port série fermé.\n")
+        print("[Mvt_Walle] Port série fermé.")
