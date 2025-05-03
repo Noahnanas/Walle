@@ -7,6 +7,7 @@ def run(robot,server):
     active = True
     
     while active:
+        robot.sleep()
         time.sleep(0.05)
 
 def stop():

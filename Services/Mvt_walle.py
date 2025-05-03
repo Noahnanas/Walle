@@ -20,7 +20,7 @@ class Walle:
             "eyebrow_R": 0.0,
             "UD_L": 0.55,
             "UD_R": 0.6,
-            "eye_angle": 0.0,
+            "eye_angle": 0.5,
             "eye_sad": 0.0,
             "neck_U":0.0,
             "neck_L":0.0,
@@ -73,17 +73,14 @@ class Walle:
         else:
             self.coef["eye_angle"] = angle
 
-        base_position = 0.6
+        base_position = 0.5
 
-        UD_L_temp = base_position-0.05 - angle * 0.5
-        UD_R_temp = base_position + angle * 0.5
+        UD_L_temp = base_position - (0.5-angle)
+        UD_R_temp = base_position + (0.5-angle)
 
-        # Prise en compte de la tristesse
-        self.coef["UD_L"] = (1 - self.coef["eye_sad"]) * UD_L_temp
-        self.coef["UD_R"] = (1 - self.coef["eye_sad"]) * UD_R_temp
-
-        self.coef["UD_L"] = max(0, min(1, self.coef["UD_L"]))
-        self.coef["UD_R"] = max(0, min(1, self.coef["UD_R"]))
+        # sadness effect
+        self.coef["UD_L"] = max(0, min(1,((1 - self.coef["eye_sad"]) * UD_L_temp)))
+        self.coef["UD_R"] = max(0, min(1,((1 - self.coef["eye_sad"]) * UD_R_temp)))
 
         self.update(["UD_L", "UD_R"])
         
@@ -101,41 +98,25 @@ class Walle:
         self.headAngle()
         print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}")
         
-    def neckLevel(self, headLevel=None):
+    def neckLevel(self, necklevel=None):
         neckAngle = self.coef["neck_angle"]
 
-        if headLevel is None:
-            headLevel = self.coef["neck_level"]
+        if necklevel is None:
+            necklevel = self.coef["neck_level"]
         else:
-            self.coef["neck_level"] = headLevel
+            self.coef["neck_level"] = necklevel
 
-        neck_L_temp = (1 - neckAngle) * headLevel
-        neck_U_temp = neckAngle + (1 - neckAngle) * headLevel
+        neck_L_temp = (1 - neckAngle) * necklevel
+        neck_U_temp = neckAngle + (1 - neckAngle) * necklevel
 
         self.coef["neck_L"] = max(0, min(1, neck_L_temp))
         self.coef["neck_U"] = max(0, min(1, neck_U_temp))
 
         self.update(["neck_L", "neck_U"])
         
-    def neckAngle(self, neckAngle=None):
+    def neckAngle(self, neckAngle):
         self.coef["neck_angle"] = neckAngle
         self.neckLevel()
-        
-    def auto_adjust(self):
-        self.headAngle(0)
-        self.coef['UD_R']=0
-        self.update(['UD_R'])
-        time.sleep(1)
-        self.coef['UD_L']=0
-        self.update(['UD_L'])
-        time.sleep(1)
-        self.sadness(0)
-        time.sleep(1)
-        self.blink()
-        time.sleep(0.7)
-        self.sadness(0.7)
-        time.sleep(1)
-        self.sadness(0)
         
     def forward(self, speed=0.5):
         self.coef["speed_L"] = speed
@@ -149,11 +130,11 @@ class Walle:
         self.update(["speed_L", "speed_R"])
         print(f"[Mvt_Walle] WALL-E recule à la vitesse {speed}")
         
-    def turn (self, speed=0):
-        self.coef["speed_L"] = -speed
-        self.coef["speed_R"] = speed
+    def turn (self, speed=0.5):
+        self.coef["speed_L"] = (0.5-speed)*2
+        self.coef["speed_R"] = (0.5-speed)*-2
         self.update(["speed_L", "speed_R"])
-        print(f"[Mvt_Walle] WALL-E tourne à la vitesse {speed}")
+        print(f"[Mvt_Walle] WALL-E tourne à la vitesse {(0.5-speed)*2}")
         
     def emote(self, name):
         if name in Emotes.EMOTES:

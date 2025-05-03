@@ -45,7 +45,6 @@ while power:
     if server.get_shudown():
         print("[Main] Shutdown command received.")
         power = False
-        break
             
     
     time.sleep(0.03)
