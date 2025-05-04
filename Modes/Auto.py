@@ -26,7 +26,7 @@ def run(robot,server):
             #print(f"[Auto] round {round((head_factor[0] - 0.5) * x_factor + 0.5,2)}")
                 
             
-            #time.sleep(0.1) 
+            time.sleep(0.1) 
 
 def stop():
     global active
