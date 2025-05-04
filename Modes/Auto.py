@@ -4,7 +4,7 @@ from Vision.cam import get_head_factor
 active = False
 
 deadzone = 0.1
-y_step = 0.05
+y_step = 0.02
 x_factor = 0.5
 tilt_factor = 1.0
 
