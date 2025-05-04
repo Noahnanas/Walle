@@ -99,7 +99,7 @@ class Walle:
         print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}")
         self.headAngle()
         
-        
+    """  
     def neckLevel(self, necklevel=None):
         neckAngle = self.coef["neck_angle"]
 
@@ -123,20 +123,19 @@ class Walle:
             neck_L = (1 - neckAngle) if neckAngle < 0.5 else 0
             neck_U = neckAngle if neckAngle > 0.5 else 0
 
-            if necklevel == 0:
-                neck_L = 0
-                neck_U = 0
 
         self.coef["neck_L"] = max(0, min(1, neck_L))
         self.coef["neck_U"] = max(0, min(1, neck_U))
 
         print(f"[Mvt_Walle] Neck_level réglé à {necklevel}")
         self.update(["neck_L", "neck_U"])
-        
+        """
     def neckAngle(self, neckAngle):
         self.coef["neck_angle"] = neckAngle
+        self.coef["neck_L"]= (1-neckAngle)
+        self.coef["neck_U"]= neckAngle
         print(f"[Mvt_Walle] Neck_angle réglé à {neckAngle}")
-        self.neckLevel()
+        self.update(["neck_L", "neck_U"])
         
     def forward(self, speed=0.5):
         self.coef["speed_L"] = speed
