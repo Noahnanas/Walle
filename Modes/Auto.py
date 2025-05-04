@@ -22,8 +22,8 @@ def run(robot,server):
                 robot.neckAngle(round(neck_angle + y_step,2))
             """
             #neck_LR = robot.get_coef("neck_LR")
-            robot.manual("neck_LR",round(head_factor[0]*x_factor,2))
-            print(f"[Auto] round {round(head_factor[0]*x_factor,2)}")
+            robot.manual("neck_LR",round((head_factor[0] - 0.5) * x_factor + 0.5,2))
+            print(f"[Auto] round {round((head_factor[0] - 0.5) * x_factor + 0.5,2)}")
                 
             
             time.sleep(0.1) 
