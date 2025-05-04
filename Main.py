@@ -12,6 +12,8 @@ import os
 power=True
 
 # Definition des pins
+GPIO.setmode(GPIO.BCM)
+
 pinBtn_R = 2
 pinBtn_C = 3
 pinBtn_T = 4
