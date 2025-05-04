@@ -107,7 +107,7 @@ class Walle:
             self.coef["neck_level"] = necklevel
 
         neck_L_temp = (1 - neckAngle) * necklevel
-        neck_U_temp = neckAngle + (1 - neckAngle) * necklevel
+        neck_U_temp = neckAngle * necklevel
 
         self.coef["neck_L"] = max(0, min(1, neck_L_temp))
         self.coef["neck_U"] = max(0, min(1, neck_U_temp))
