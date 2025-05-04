@@ -84,4 +84,4 @@ def get_servo_data():
     return temp1, temp2
 
 def run_web_server():
-    socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False)
+    socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False, allow_unsafe_werkzeug=True)
