@@ -15,9 +15,11 @@ power=True
 GPIO.setmode(GPIO.BCM)
 
 pinBtn_R = 2
+pinBtn_T = 2
 pinBtn_C = 3
-pinBtn_T = 4
-pinBtn_S = 17
+pinBtn_S = 16
+state_btn=[0]*4
+
 
 GPIO.setup(pinBtn_R, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 GPIO.setup(pinBtn_C, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
@@ -49,10 +51,11 @@ modes = {
 current_mode_name = None
 
 while power:
-    etat_R = GPIO.input(pinBtn_R)
-    etat_C = GPIO.input(pinBtn_C)
-    etat_T = GPIO.input(pinBtn_T)
-    etat_S = GPIO.input(pinBtn_S)
+    state_btn[0] = GPIO.input(pinBtn_R)
+    state_btn[1] = GPIO.input(pinBtn_T)
+    state_btn[2] = GPIO.input(pinBtn_C) 
+    state_btn[3] = GPIO.input(pinBtn_S)
+    print(f"[Main] Button states: {state_btn}")
     selected = server.get_selected_mode()
 
     if selected != current_mode_name:

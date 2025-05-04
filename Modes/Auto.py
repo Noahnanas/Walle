@@ -4,9 +4,9 @@ from Vision.cam import get_head_factor
 active = False
 
 deadzone = 0.08
-y_step = 0.02
+y_step = 0.03
 x_factor = 0.5
-tilt_factor = 1.0
+tilt_factor = 1.1
 
 def run(robot,server):
     global active
