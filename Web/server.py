@@ -78,7 +78,7 @@ def get_selected_emote():
 def get_servo_data():
     global selected_servo, servo_position
     temp1 = selected_servo
-    temp2 = servo_position
+    temp2 = servo_position/180
     selected_servo = None
     servo_position = 90
     return temp1, temp2

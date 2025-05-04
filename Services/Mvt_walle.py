@@ -143,6 +143,13 @@ class Walle:
     def sound(self, name):
         if not self.sound.is_playing():
             self.sound.play(name)
+            
+    def get_coef(self, name):
+        if name in self.coef:
+            return self.coef[name]
+        else:
+            print(f"[Mvt_Walle] Erreur: {name} n'est pas un coefficient valide.")
+            return None
 
     def sleep(self):
         self.coef = self.coef_init.copy()
