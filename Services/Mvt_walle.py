@@ -7,7 +7,7 @@ class Walle:
     def __init__(self, port: str):
         self.serial_available = True
         try:
-            self.serial = serial.Serial(port, baudrate=9600, timeout=1)
+            self.serial = serial.Serial(port, baudrate=115200, timeout=1)
             print(f"[Mvt_Walle] ✅ Connexion au port {port} réussie.")
         except serial.SerialException as e:
             print(f"[Mvt_Walle] ❌ Erreur : Impossible d'ouvrir le port {port}.")
