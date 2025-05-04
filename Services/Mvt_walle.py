@@ -86,6 +86,7 @@ class Walle:
         
     def neckLR(self, angle):
         self.coef["neck_LR"]=angle
+        print(f"[Mvt_Walle] WALL-E tourne la tête de {angle}")
         self.update(["neck_LR"])
 
     def eyebrow(self, angle):
@@ -95,8 +96,9 @@ class Walle:
 
     def sadness(self, angle):
         self.coef["eye_sad"] = angle
-        self.headAngle()
         print(f"[Mvt_Walle] Niveau de tristesse réglé à {angle}")
+        self.headAngle()
+        
         
     def neckLevel(self, necklevel=None):
         neckAngle = self.coef["neck_angle"]
@@ -111,30 +113,32 @@ class Walle:
 
         self.coef["neck_L"] = max(0, min(1, neck_L_temp))
         self.coef["neck_U"] = max(0, min(1, neck_U_temp))
-
+        
+        print(f"[Mvt_Walle] Neck_level réglé à {necklevel}")
         self.update(["neck_L", "neck_U"])
         
     def neckAngle(self, neckAngle):
         self.coef["neck_angle"] = neckAngle
+        print(f"[Mvt_Walle] Neck_angle réglé à {neckAngle}")
         self.neckLevel()
         
     def forward(self, speed=0.5):
         self.coef["speed_L"] = speed
         self.coef["speed_R"] = speed
-        self.update(["speed_L", "speed_R"])
         print(f"[Mvt_Walle] WALL-E avance à la vitesse {speed}")
+        self.update(["speed_L", "speed_R"])
         
     def backward(self, speed=0.5):
         self.coef["speed_L"] = -speed
         self.coef["speed_R"] = -speed
-        self.update(["speed_L", "speed_R"])
         print(f"[Mvt_Walle] WALL-E recule à la vitesse {speed}")
+        self.update(["speed_L", "speed_R"])
         
     def turn (self, speed=0.5):
         self.coef["speed_L"] = (0.5-speed)*2
         self.coef["speed_R"] = (0.5-speed)*-2
-        self.update(["speed_L", "speed_R"])
         print(f"[Mvt_Walle] WALL-E tourne à la vitesse {(0.5-speed)*2}")
+        self.update(["speed_L", "speed_R"])
         
     def emote(self, name):
         if name in Emotes.EMOTES:
