@@ -56,7 +56,7 @@ def frame_process():
         nose_tip = face_landmarks.landmark[1]  
 
         # position
-        
+        x_position_history.pop(0)
         x_position_history.append(nose_tip.x)
         y_position_history.pop(0)
         y_position_history.append(nose_tip.y)

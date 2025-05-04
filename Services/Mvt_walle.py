@@ -20,7 +20,7 @@ class Walle:
             "eyebrow_R": 0.0,
             "UD_L": 0.55,
             "UD_R": 0.6,
-            "eye_angle": 0.5,
+            "head_angle": 0.5,
             "eye_sad": 0.0,
             "neck_U":0.0,
             "neck_L":0.0,
@@ -69,9 +69,9 @@ class Walle:
 
     def headAngle(self, angle=None):
         if angle is None:
-            angle = self.coef["eye_angle"]
+            angle = self.coef["head_angle"]
         else:
-            self.coef["eye_angle"] = angle
+            self.coef["head_angle"] = angle
 
         base_position = 0.5
 
