@@ -21,8 +21,10 @@ def run(robot,server):
             elif (head_factor[1] > (0.5 + deadzone)) and (neck_angle!=1) :
                 robot.neckAngle(round(neck_angle + y_step,2))
             """
-            #neck_LR = robot.get_coef("neck_LR")
-            robot.manual("neck_LR",round((head_factor[0] - 0.5) * x_factor + 0.5,2))
+            neck_LR = robot.get_coef("neck_LR")
+            neck_LR_temp = round((head_factor[0] - 0.5) * x_factor + 0.5,2)
+            if (neck_LR!= neck_LR_temp):
+                robot.neckLR(neck_LR_temp)
             #print(f"[Auto] round {round((head_factor[0] - 0.5) * x_factor + 0.5,2)}")
                 
             
