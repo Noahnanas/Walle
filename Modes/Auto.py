@@ -5,7 +5,7 @@ active = False
 
 deadzone = 0.06
 y_step = 0.05
-x_factor = 0.7
+x_factor = 0.5
 
 def run(robot,server):
     global active
@@ -22,7 +22,7 @@ def run(robot,server):
                 robot.neckAngle(round(neck_angle + y_step,2))
             """
             neck_LR = robot.get_coef("neck_LR")
-            robot.neckLR(round(neck_LR*x_factor,2))
+            robot.neckLR(round(head_factor[0]*x_factor,2))
                 
             
             time.sleep(0.1) 
