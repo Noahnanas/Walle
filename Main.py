@@ -21,10 +21,10 @@ pinBtn_S = 24
 state_btn=[0]*4
 
 
-GPIO.setup(pinBtn_R, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(pinBtn_R, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(pinBtn_C, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 GPIO.setup(pinBtn_T, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-GPIO.setup(pinBtn_S, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(pinBtn_S, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 
 #server run
