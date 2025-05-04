@@ -22,8 +22,7 @@ def run(robot,server):
                 robot.neckAngle(round(neck_angle + y_step,2))
             """
             neck_LR = robot.get_coef("neck_LR")
-            if (head_factor[0] < (0.5 - deadzone)) :
-                robot.neckLR(round(neck_LR*x_factor,2))
+            robot.neckLR(round(neck_LR*x_factor,2))
                 
             
             time.sleep(0.1) 
