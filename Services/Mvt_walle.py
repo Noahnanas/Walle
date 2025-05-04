@@ -143,7 +143,7 @@ class Walle:
     def emote(self, name):
         if name in Emotes.EMOTES:
             Emotes.EMOTES[name](self)
-     """   
+    """   
     def sound(self, name):
         if not self.sound.is_playing():
             self.sound.play(name)
