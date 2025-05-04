@@ -108,6 +108,7 @@ class Walle:
         else:
             self.coef["neck_level"] = necklevel
 
+
         if neckAngle == 0:
             neck_L = 1
             neck_U = 0
@@ -118,10 +119,10 @@ class Walle:
             neck_L = necklevel
             neck_U = necklevel
         else:
-            # Interpolation linéaire entre les cas extrêmes
+
             neck_L = (1 - neckAngle) if neckAngle < 0.5 else 0
             neck_U = neckAngle if neckAngle > 0.5 else 0
-            # Si neck_level==0, force les deux à 0
+
             if necklevel == 0:
                 neck_L = 0
                 neck_U = 0
