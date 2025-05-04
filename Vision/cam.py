@@ -27,7 +27,7 @@ def gen_frames():
     global last_frame, last_results
     while True:
         frame = picam2.capture_array()
-        #frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+        frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
         results = face_mesh.process(frame)
         last_frame = frame
         last_results = results
