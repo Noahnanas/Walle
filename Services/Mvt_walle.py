@@ -37,7 +37,7 @@ class Walle:
         self.coef = self.coef_init.copy()
         #self.update(self.coef.keys())
         
-        self.sound = SoundPlayer()
+        #self.sound = SoundPlayer()
         
 
     def update(self, tab):
@@ -143,11 +143,11 @@ class Walle:
     def emote(self, name):
         if name in Emotes.EMOTES:
             Emotes.EMOTES[name](self)
-        
+     """   
     def sound(self, name):
         if not self.sound.is_playing():
             self.sound.play(name)
-            
+            """
     def get_coef(self, name):
         if name in self.coef:
             return self.coef[name]
