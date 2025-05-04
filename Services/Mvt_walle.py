@@ -25,7 +25,7 @@ class Walle:
             "neck_U":0.0,
             "neck_L":0.0,
             "neck_LR":0.0,
-            "neck_level":0.5,
+            "neck_level":1.0,
             "neck_angle":0.0,
             "arm_L":0.5,
             "arm_R":0.5,

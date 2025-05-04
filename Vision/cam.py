@@ -11,8 +11,7 @@ face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refi
 screen_width, screen_height = 1280, 960 
 picam2 = Picamera2()
 preview_config = picam2.create_preview_configuration(
-    main={"format": "RGB888", "size": (screen_width, screen_height)}
-)
+    main={"format": "RGB888", "size": (screen_width, screen_height)})
 picam2.configure(preview_config)
 picam2.start()
 
