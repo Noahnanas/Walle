@@ -72,4 +72,4 @@ def get_head_factor():
     x_position= round(sum(x_position_history) / len(x_position_history),2)
     y_position= round(sum(y_position_history) / len(y_position_history),2)
     head_tilt = round(sum(head_tilt_history) / len(head_tilt_history),2)
-    return [x_position, y_position, head_tilt]
+    return [x_position, y_position, head_tilt,len(head_tilt_history)]
