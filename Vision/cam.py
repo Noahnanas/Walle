@@ -8,7 +8,7 @@ mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=False)
 
 # Camera init
-screen_width, screen_height = 960, 1280
+screen_width, screen_height = 1280, 960
 picam2 = Picamera2()
 preview_config = picam2.create_preview_configuration(
     main={"format": "RGB888", "size": (screen_width, screen_height)}
@@ -27,7 +27,7 @@ def gen_frames():
     global last_frame, last_results
     while True:
         frame = picam2.capture_array()
-        frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+        #frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
         results = face_mesh.process(frame)
         last_frame = frame
         last_results = results
