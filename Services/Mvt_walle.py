@@ -108,12 +108,27 @@ class Walle:
         else:
             self.coef["neck_level"] = necklevel
 
-        neck_L_temp = (1 - neckAngle) * necklevel
-        neck_U_temp = neckAngle * necklevel
+        if neckAngle == 0:
+            neck_L = 1
+            neck_U = 0
+        elif neckAngle == 1:
+            neck_L = 0
+            neck_U = 1
+        elif neckAngle == 0.5:
+            neck_L = necklevel
+            neck_U = necklevel
+        else:
+            # Interpolation linéaire entre les cas extrêmes
+            neck_L = (1 - neckAngle) if neckAngle < 0.5 else 0
+            neck_U = neckAngle if neckAngle > 0.5 else 0
+            # Si neck_level==0, force les deux à 0
+            if necklevel == 0:
+                neck_L = 0
+                neck_U = 0
 
-        self.coef["neck_L"] = max(0, min(1, neck_L_temp))
-        self.coef["neck_U"] = max(0, min(1, neck_U_temp))
-        
+        self.coef["neck_L"] = max(0, min(1, neck_L))
+        self.coef["neck_U"] = max(0, min(1, neck_U))
+
         print(f"[Mvt_Walle] Neck_level réglé à {necklevel}")
         self.update(["neck_L", "neck_U"])
         

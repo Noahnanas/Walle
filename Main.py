@@ -14,10 +14,10 @@ power=True
 # Definition des pins
 GPIO.setmode(GPIO.BCM)
 
-pinBtn_R = 23
+pinBtn_R = 24
 pinBtn_T = 2
 pinBtn_C = 3
-pinBtn_S = 24
+pinBtn_S = 23
 state_btn=[0]*4
 
 
