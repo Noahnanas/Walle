@@ -53,13 +53,13 @@ class Walle:
             print("[Mvt_Walle] Erreur envoie arduino\n")
 
     def blink(self):
-        self.coef['lid_L']=0
-        self.coef['lid_R']=0
+        self.coef['lid_L']=1
+        self.coef['lid_R']=1
         self.update(['lid_L','lid_R'])
         print("[Mvt_Walle] WALL-E cligne des yeux. 1")
         time.sleep(0.15)
-        self.coef['lid_L']=1
-        self.coef['lid_R']=1
+        self.coef['lid_L']=0
+        self.coef['lid_R']=0
         self.update(['lid_L','lid_R'])
         
     def manual(self,name,angle):
