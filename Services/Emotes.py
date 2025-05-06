@@ -4,8 +4,7 @@ def auto_adjust(walle):
     walle.headAngle(0.5)
     walle.manual("UD_R",0)
     time.sleep(1)
-    walle.coef['UD_L'] = 0
-    walle.update(['UD_L'])
+    walle.manual("UD_L",0)
     time.sleep(1)
     walle.sadness(0)
     time.sleep(1)
